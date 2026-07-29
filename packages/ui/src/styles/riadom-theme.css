@@ -1,0 +1,141 @@
+/*
+ * Riadom editorial design tokens + utilities.
+ * Import via globals.css — use these classes on new pages instead of one-off styles.
+ */
+
+@theme inline {
+  --font-brand: var(--font-brand);
+  --font-display: var(--font-display);
+
+  --tracking-brand: var(--tracking-brand);
+  --tracking-label: var(--tracking-label);
+  --tracking-nav: var(--tracking-nav);
+  --tracking-caps: var(--tracking-caps);
+  --tracking-display: var(--tracking-display);
+
+  --leading-body: var(--leading-body);
+  --header-height: var(--header-height);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@utility font-brand {
+  font-family: var(--font-brand);
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility page-container {
+  @apply mx-auto w-full max-w-6xl px-6;
+}
+
+@utility section-padding {
+  @apply py-24 md:py-32;
+}
+
+@utility surface-muted {
+  background: color-mix(in oklch, var(--background), var(--foreground) 2%);
+}
+
+@utility text-label {
+  @apply text-[11px] font-medium tracking-[var(--tracking-label)] text-muted-foreground uppercase;
+}
+
+@utility text-kicker {
+  @apply text-[11px] tracking-[var(--tracking-caps)] text-muted-foreground uppercase;
+}
+
+@utility text-nav {
+  @apply text-[13px] tracking-[var(--tracking-nav)] text-muted-foreground transition-colors hover:text-foreground;
+}
+
+@utility text-body-lg {
+  @apply text-[15px] leading-[var(--leading-body)] text-muted-foreground;
+}
+
+@utility type-display-xl {
+  @apply font-display text-[clamp(2.75rem,7vw,4.75rem)] leading-[0.95] font-medium tracking-[var(--tracking-display)] lowercase;
+}
+
+@utility type-display-lg {
+  @apply font-display text-3xl leading-[1.05] font-medium tracking-[-0.03em] lowercase sm:text-4xl;
+}
+
+@utility type-display-md {
+  @apply font-display text-3xl font-medium tracking-[-0.03em] lowercase;
+}
+
+@utility grid-editorial {
+  @apply grid gap-px border border-border/60 bg-border/60;
+}
+
+@utility link-cta {
+  @apply inline-flex items-center justify-center border border-foreground/20 px-4 py-2 text-[11px] tracking-[var(--tracking-caps)] uppercase transition-colors hover:bg-foreground hover:text-background;
+}
+
+@utility icon-box {
+  @apply flex items-center justify-center border border-border/70;
+}
+
+@utility animate-fade-up {
+  animation: var(--animate-fade-up);
+}
+
+@utility animate-float {
+  animation: var(--animate-float);
+}
+
+@utility animate-marquee {
+  animation: var(--animate-marquee);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-float,
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+@layer base {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not(
+      [type='file']
+    ),
+  textarea {
+    @apply rounded-none border border-input bg-background outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-foreground/30;
+  }
+}
