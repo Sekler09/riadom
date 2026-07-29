@@ -1,8 +1,12 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@repo/tailwind-config",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./tailwind.config.ts",
+    "./postcss": "./postcss.config.mjs"
+  },
   "scripts": {
     "format": "prettier --write . --ignore-path ../../.prettierignore",
     "format:check": "prettier --check . --ignore-path ../../.prettierignore"
@@ -10,9 +14,10 @@
   "prettier": "@repo/prettier-config",
   "devDependencies": {
     "@repo/prettier-config": "workspace:*",
-    "prettier": "^3.7.4"
-  },
-  "publishConfig": {
-    "access": "public"
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "prettier": "^3.7.4",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "extends": "@repo/typescript-config/nestjs.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "ignoreDeprecations": "6.0",
+    "types": ["jest", "node"]
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "dist"]
+}

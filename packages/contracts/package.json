@@ -1,38 +1,35 @@
 {
-  "name": "@repo/ui",
+  "name": "@repo/contracts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
-    "./globals.css": "./src/styles/globals.css",
-    "./components/*": "./src/components/*.tsx",
-    "./lib/*": "./src/lib/*.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./health": {
+      "types": "./dist/health.d.ts",
+      "default": "./dist/health.js"
+    }
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "build": "tsc",
+    "dev": "tsc --watch",
     "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
     "format": "prettier --write . --ignore-path ../../.prettierignore",
     "format:check": "prettier --check . --ignore-path ../../.prettierignore"
   },
   "prettier": "@repo/prettier-config",
   "dependencies": {
-    "@radix-ui/react-compose-refs": "^1.1.2",
-    "@radix-ui/react-slot": "^1.2.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.487.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwind-merge": "^3.1.0"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
-    "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
     "prettier": "^3.7.4",
     "typescript": "6.0.3"
