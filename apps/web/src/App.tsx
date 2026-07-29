@@ -12,6 +12,11 @@ import {
   CardTitle,
 } from '@repo/ui/components/card';
 
+const activityItems = Array.from({ length: 12 }, (_, index) => ({
+  id: index + 1,
+  label: `Activity item ${index + 1}`,
+}));
+
 export function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -50,13 +55,15 @@ export function App() {
             Vite + React with shared contracts and shadcn UI
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-4">
           {loading && (
-            <p className="text-sm text-muted-foreground">Loading...</p>
+            <p className="shimmer text-sm text-muted-foreground">
+              Loading health status&hellip;
+            </p>
           )}
           {error && <p className="text-sm text-destructive">Error: {error}</p>}
           {health && (
-            <div className="space-y-1 text-sm">
+            <div className="flex flex-col gap-1 text-sm">
               <p>
                 <span className="font-medium">Status:</span> {health.status}
               </p>
@@ -66,6 +73,22 @@ export function App() {
               </p>
             </div>
           )}
+
+          <div className="overflow-hidden rounded-xl ring-1 ring-foreground/10">
+            <div className="h-40 scroll-fade-y no-scrollbar overflow-y-auto">
+              <div className="flex flex-col gap-1.5 p-1.5">
+                {activityItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-lg bg-muted px-3 py-2.5 text-sm"
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <Button onClick={() => void fetchHealth()} disabled={loading}>
             Refresh health
           </Button>
