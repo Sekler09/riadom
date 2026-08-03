@@ -20,6 +20,9 @@
     "@floating-ui/utils": "^0.2.12",
     "@repo/contracts": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@tanstack/react-query": "^5.101.4",
+    "@tanstack/react-router": "^1.170.18",
+    "axios": "^1.19.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "scheduler": "^0.25.0"
@@ -29,6 +32,8 @@
     "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/vite": "^4.1.12",
+    "@tanstack/eslint-plugin-query": "^5.101.4",
+    "@tanstack/router-plugin": "^1.168.23",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",

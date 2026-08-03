@@ -1,7 +1,7 @@
-import { LandingPage } from '@/features/landing/landing-page';
+import { AppProvider } from '@/app/provider';
 
 const App = () => {
-  return <LandingPage />;
+  return <AppProvider />;
 };
 
 export { App };
