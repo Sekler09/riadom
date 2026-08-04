@@ -5,8 +5,10 @@ import { cn } from '@repo/ui/lib/utils';
 import { Menu, X } from 'lucide-react';
 
 import { navLinks } from '@/features/landing/constants/nav-links';
+import { Link } from '@tanstack/react-router';
 
-const navLinkClassName =  'h-auto px-0 text-nav normal-case hover:bg-transparent';
+const navLinkClassName =
+  'h-auto px-0 text-nav normal-case hover:bg-transparent';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -14,7 +16,7 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-background">
-        <div className="page-container grid h-(--header-height) grid-cols-[1fr_auto_1fr] items-center">
+        <div className="page-container md:grid h-(--header-height) flex md:grid-cols-[1fr_auto_1fr] not-md:justify-between items-center">
           <a
             href="#"
             className="justify-self-start text-foreground"
@@ -47,7 +49,7 @@ const Navbar = () => {
               size="sm"
               className={cn(navLinkClassName, 'hidden sm:inline-flex')}
               nativeButton={false}
-              render={<a href="#" />}
+              render={<Link to="/sign-in" />}
             >
               sign in
             </Button>
@@ -56,7 +58,7 @@ const Navbar = () => {
               size="sm"
               className="hidden text-[11px] tracking-caps uppercase md:inline-flex"
               nativeButton={false}
-              render={<a href="#" />}
+              render={<Link to="/sign-up" />}
             >
               join
             </Button>
@@ -115,7 +117,7 @@ const Navbar = () => {
               size="sm"
               className={cn(navLinkClassName, 'justify-start')}
               nativeButton={false}
-              render={<a href="#" onClick={() => setOpen(false)} />}
+              render={<Link to="/sign-in" onClick={() => setOpen(false)} />}
             >
               sign in
             </Button>
