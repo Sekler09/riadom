@@ -2,10 +2,8 @@ import { Button } from '@repo/ui/components/button';
 import { cn } from '@repo/ui/lib/utils';
 import { Link } from '@tanstack/react-router';
 
+import { TelegramSignInButton } from '@/features/auth/components/telegram-sign-in-button';
 import { authCopy, type AuthMode } from '@/features/auth/constants/auth-copy';
-import { AppleIcon } from '@/features/auth/components/apple-icon';
-import { GoogleIcon } from '@/features/auth/components/google-icon';
-import { OAuthButton } from '@/features/auth/components/oauth-button';
 
 type AuthFormProps = {
   mode: AuthMode;
@@ -26,11 +24,14 @@ const AuthForm = ({ mode }: AuthFormProps) => {
       </div>
 
       <div
-        className="animate-fade-up mt-10 space-y-3"
+        className="animate-fade-up mt-10"
         style={{ animationDelay: '0.25s' }}
       >
-        <OAuthButton provider="google" icon={<GoogleIcon />} />
-        <OAuthButton provider="apple" icon={<AppleIcon />} />
+        <TelegramSignInButton />
+        <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
+          we use telegram so people can reach you after approval — no in-app
+          chat needed.
+        </p>
       </div>
 
       <p

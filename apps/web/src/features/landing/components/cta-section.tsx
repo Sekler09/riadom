@@ -16,7 +16,7 @@ const CtaSection = () => {
             </h2>
             <p className="text-body-lg mb-10">
               be first to discover and join real-world activities in your area.
-              sign in with google or apple when we launch.
+              sign in with telegram when we launch.
             </p>
 
             <form
