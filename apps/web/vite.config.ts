@@ -4,6 +4,8 @@ import path from 'node:path';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import { defineConfig } from 'vite';
 
+const ngrokDomain = process.env.NGROK_DOMAIN ?? '';
+
 export default defineConfig({
   plugins: [
     tanstackRouter({
@@ -21,7 +23,17 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
     port: 3000,
+    allowedHosts: [ngrokDomain],
+    hmr:
+      process.env.NGROK_HMR === 'true' && process.env.NGROK_HOST
+        ? {
+            protocol: 'wss',
+            host: process.env.NGROK_HOST,
+            clientPort: 443,
+          }
+        : true,
     proxy: {
       '/api': {
         target: 'http://localhost:4000',

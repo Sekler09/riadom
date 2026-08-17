@@ -16,6 +16,7 @@
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@base-ui/utils": "^0.3.1",
+    "@better-auth/infra": "^0.3.7",
     "@floating-ui/dom": "^1.8.0",
     "@floating-ui/utils": "^0.2.12",
     "@repo/contracts": "workspace:*",
@@ -23,6 +24,8 @@
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-router": "^1.170.18",
     "axios": "^1.19.0",
+    "better-auth": "1.6.26",
+    "better-auth-telegram": "^2.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "scheduler": "^0.25.0"

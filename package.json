@@ -4,8 +4,12 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "ngrok:up": "bash scripts/ngrok-host.sh",
+    "ngrok:docker": "docker compose --profile ngrok up ngrok",
     "dev:web": "turbo run dev --filter=web --filter=@repo/contracts",
-    "dev:api": "turbo run dev --filter=api --filter=@repo/contracts",
+    "dev:api": "turbo run dev --filter=api --filter=@repo/contracts --filter=@repo/db",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "format:check": "turbo run format:check",
@@ -19,6 +23,11 @@
     "typescript": "6.0.3"
   },
   "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "overrides": {
+      "zod": "^4.4.3"
+    }
+  },
   "engines": {
     "node": ">=18"
   }

@@ -15,5 +15,19 @@ services:
       timeout: 5s
       retries: 5
 
+  ngrok:
+    profiles: [ngrok]
+    image: ngrok/ngrok:latest
+    command:
+      - http
+      - --url=https://${NGROK_DOMAIN}
+      - host.docker.internal:3000
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - '4040:4040'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
 volumes:
   postgres_data:

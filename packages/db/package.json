@@ -2,15 +2,14 @@
   "name": "@repo/db",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./schema": {
-      "types": "./dist/schema/index.d.ts",
-      "default": "./dist/schema/index.js"
+      "types": "./dist/db/schema.d.ts",
+      "default": "./dist/db/schema.js"
     }
   },
   "scripts": {

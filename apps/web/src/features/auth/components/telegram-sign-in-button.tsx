@@ -1,13 +1,23 @@
 import { Button } from '@repo/ui/components/button';
 import { cn } from '@repo/ui/lib/utils';
 
+import { paths } from '@/constants/paths';
+import { signInWithTelegramOidc } from '@/features/auth/api/auth-client';
 import { TelegramIcon } from '@/features/auth/components/telegram-icon';
 
 type TelegramSignInButtonProps = {
   className?: string;
+  callbackUrl?: string;
 };
 
-const TelegramSignInButton = ({ className }: TelegramSignInButtonProps) => {
+const TelegramSignInButton = ({
+  className,
+  callbackUrl = paths.profile,
+}: TelegramSignInButtonProps) => {
+  const handleClick = () => {
+    void signInWithTelegramOidc(callbackUrl);
+  };
+
   return (
     <Button
       type="button"
@@ -17,6 +27,7 @@ const TelegramSignInButton = ({ className }: TelegramSignInButtonProps) => {
         'w-full justify-start gap-3 normal-case tracking-normal',
         className,
       )}
+      onClick={handleClick}
     >
       <span className="flex size-5 shrink-0 items-center justify-center text-[#229ED9] [&_svg]:size-5">
         <TelegramIcon />
