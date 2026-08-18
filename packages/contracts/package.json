@@ -5,11 +5,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./src/index.ts",
+      "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./health": {
       "types": "./dist/health.d.ts",
+      "import": "./src/health.ts",
+      "require": "./dist/health.js",
       "default": "./dist/health.js"
+    },
+    "./auth-errors": {
+      "types": "./dist/auth-errors.d.ts",
+      "import": "./src/auth-errors.ts",
+      "require": "./dist/auth-errors.js",
+      "default": "./dist/auth-errors.js"
     }
   },
   "scripts": {

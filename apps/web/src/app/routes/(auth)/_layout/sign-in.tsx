@@ -1,19 +1,19 @@
-import { AuthForm } from '@/features/auth/components/auth-form';
+import { AuthErrorCodeSchema } from '@repo/contracts/auth-errors';
+import { SignInPage } from '@/features/auth/pages/sign-in-page';
+import {
+  handleAuthErrorSearch,
+  type AuthErrorSearch,
+} from '@/features/auth/utils/handle-auth-error-search';
 import { createFileRoute } from '@tanstack/react-router';
 
-type SignInSearch = {
-  error?: string;
-};
-
-const SignInPage = () => {
-  const { error } = Route.useSearch();
-
-  return <AuthForm mode="sign-in" authError={error} />;
-};
-
 export const Route = createFileRoute('/(auth)/_layout/sign-in')({
-  validateSearch: (search: Record<string, unknown>): SignInSearch => ({
-    error: typeof search.error === 'string' ? search.error : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): AuthErrorSearch => {
+    const parsed = AuthErrorCodeSchema.safeParse(search.error);
+
+    return {
+      error: parsed.success ? parsed.data : undefined,
+    };
+  },
+  beforeLoad: handleAuthErrorSearch,
   component: SignInPage,
 });

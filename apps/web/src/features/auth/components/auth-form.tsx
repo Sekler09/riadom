@@ -8,20 +8,15 @@ import { authCopy, type AuthMode } from '@/features/auth/constants/auth-copy';
 
 type AuthFormProps = {
   mode: AuthMode;
-  authError?: string;
 };
 
-const authErrorCopy: Record<string, string> = {
-  telegram_username_required:
-    'Set a Telegram username in Telegram Settings, then try again.',
+const authErrorCallbackUrl: Record<AuthMode, string> = {
+  'sign-in': paths.signIn,
+  'sign-up': paths.signUp,
 };
 
-const AuthForm = ({ mode, authError }: AuthFormProps) => {
+const AuthForm = ({ mode }: AuthFormProps) => {
   const copy = authCopy[mode];
-  const errorMessage = authError
-    ? (authErrorCopy[authError] ??
-      'Something went wrong signing in. Please try again.')
-    : null;
 
   return (
     <div className="mx-auto w-full max-w-sm">
@@ -34,21 +29,14 @@ const AuthForm = ({ mode, authError }: AuthFormProps) => {
         <p className="text-body-lg">{copy.subtitle}</p>
       </div>
 
-      {errorMessage ? (
-        <p
-          className="animate-fade-up mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive"
-          role="alert"
-          style={{ animationDelay: '0.15s' }}
-        >
-          {errorMessage}
-        </p>
-      ) : null}
-
       <div
         className="animate-fade-up mt-10"
         style={{ animationDelay: '0.25s' }}
       >
-        <TelegramSignInButton callbackUrl={paths.profile} />
+        <TelegramSignInButton
+          callbackUrl={paths.profile}
+          errorCallbackUrl={authErrorCallbackUrl[mode]}
+        />
         <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
           we use telegram so people can reach you after approval — no in-app
           chat needed.

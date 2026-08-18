@@ -8,14 +8,16 @@ import { TelegramIcon } from '@/features/auth/components/telegram-icon';
 type TelegramSignInButtonProps = {
   className?: string;
   callbackUrl?: string;
+  errorCallbackUrl: string;
 };
 
 const TelegramSignInButton = ({
   className,
   callbackUrl = paths.profile,
+  errorCallbackUrl,
 }: TelegramSignInButtonProps) => {
   const handleClick = () => {
-    void signInWithTelegramOidc(callbackUrl);
+    void signInWithTelegramOidc(callbackUrl, errorCallbackUrl);
   };
 
   return (
