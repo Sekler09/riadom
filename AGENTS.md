@@ -26,8 +26,9 @@ the architecture doc).
 ## How it's built (short version)
 
 A standalone, mobile-first web app (React + Vite frontend, NestJS backend,
-Postgres + PostGIS, monorepo). Not a native app, not embedded in another
-platform. Sign-in is Google/Apple OAuth.
+Postgres, monorepo). Not a native app, not embedded in another
+platform. Sign-in is Better Auth with Telegram OIDC today; Google/Apple OAuth
+may follow.
 
 Architecture follows [Bulletproof React](https://github.com/alan2207/bulletproof-react/)
 conventions — feature-based modules, unidirectional imports, shared contracts.

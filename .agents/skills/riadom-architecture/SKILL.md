@@ -4,7 +4,7 @@ description: >-
   Guides folder placement, import boundaries, and module structure in the Riadom
   monorepo (React/Vite frontend, NestJS backend). Use when adding features, API
   endpoints, components, moving files, or answering architecture questions in
-  apps/web, apps/api, packages/contracts, or packages/ui.
+  apps/web, apps/api, packages/contracts, packages/db, or packages/ui.
 ---
 
 # Riadom Architecture
@@ -14,38 +14,42 @@ Follow [Bulletproof React](https://github.com/alan2207/bulletproof-react/) struc
 ## Quick rules
 
 - **Unidirectional imports:** shared → features → app (frontend); common → modules → app.module (backend)
-- **No cross-feature imports** — compose features in `app/`
+- **No cross-feature imports** — compose features in `app/routes/`
 - **No barrel files** — direct file imports only
 - **kebab-case** for files and folders
-- **`@repo/contracts`** for API shapes; **`@repo/ui`** for design system only
+- **`@repo/contracts`** for API shapes; **`@repo/ui`** for design system only; **`@repo/db`** for Drizzle schema and client
 
 ## Where to put new code
 
 | What                 | Where                                         |
 | -------------------- | --------------------------------------------- |
 | Feature UI/logic     | `apps/web/src/features/<name>/`               |
+| Route-facing page    | `features/<name>/pages/<name>-page.tsx`       |
 | Shared app UI        | `apps/web/src/components/`                    |
 | Design primitive     | `packages/ui/src/components/`                 |
 | Shared hook          | `apps/web/src/hooks/`                         |
-| API fetcher (future) | `features/<name>/api/` or `apps/web/src/lib/` |
-| Route wiring         | `apps/web/src/app/`                           |
+| API fetcher / query  | `features/<name>/api/`                        |
+| Auth client          | `features/auth/api/`                          |
+| Route wiring         | `apps/web/src/app/routes/`                    |
 | API shape (Zod)      | `packages/contracts/src/<domain>.ts`          |
+| DB schema / migration| `packages/db/src/db/`                         |
 | NestJS endpoint      | `apps/api/src/<feature>/`                     |
+| Better Auth config   | `apps/api/src/auth/`                          |
 | Guard/filter/pipe    | `apps/api/src/common/`                        |
 
 ## Adding a frontend feature
 
 1. Create `apps/web/src/features/<name>/`
-2. Add `components/` (and `api/`, `hooks/`, `types/`, `constants/` only when needed)
-3. Export the page/view component from the feature root (e.g. `features/map/map-page.tsx`)
-4. Import and compose it in `apps/web/src/app/app.tsx` (or future router)
-5. Do **not** import from other features inside this feature
+2. Add `pages/`, `components/`, and `api/`, `hooks/`, `types/`, `constants/`, `utils/` only when needed
+3. Add a route file in `apps/web/src/app/routes/` that imports the page component
+4. Do **not** import from other features inside this feature
 
 ```
 features/map/
 ├── components/
 │   └── map-view.tsx
-└── map-page.tsx
+└── pages/
+    └── map-page.tsx
 ```
 
 ## Adding a backend module
@@ -76,7 +80,7 @@ export class HealthController {
 1. Add schema in `packages/contracts/src/<domain>.ts`
 2. Export subpath in `packages/contracts/package.json` (e.g. `"./activities"`)
 3. Use in api: `createZodDto(Schema)` for DTOs
-4. Use in web: import type or validate responses when api-client exists
+4. Use in web: import type or validate responses
 
 ## Anti-patterns
 
@@ -85,19 +89,18 @@ export class HealthController {
 - Business logic in NestJS controllers
 - Feature-specific UI in `@repo/ui`
 - Duplicating API types outside `@repo/contracts`
-- Shared hooks/components importing from `features/` or `app/`
+- Shared hooks/lib importing from `features/` or `app/`
+- Editing `routeTree.gen.ts` by hand
 
-## State categories (when libraries are added)
+## State categories
 
-| State type   | Where                      | Future library        |
+| State type   | Where                      | Library               |
 | ------------ | -------------------------- | --------------------- |
 | Component    | `useState` in component    | —                     |
 | Server cache | `features/<name>/api/`     | TanStack Query        |
-| URL          | route params/search        | react-router          |
-| Forms        | feature components         | react-hook-form + Zod |
-| App-global   | `stores/` or `components/` | zustand               |
-
-Do not install these libraries unless the task explicitly requires them.
+| URL          | `app/routes/`              | TanStack Router       |
+| Forms        | feature components         | react-hook-form (TBD) |
+| App-global   | `stores/` or `components/` | zustand (TBD)         |
 
 ## Product constraints
 
