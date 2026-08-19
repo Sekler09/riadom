@@ -3,11 +3,13 @@ import { Toaster } from '@repo/ui/components/sonner';
 import { ThemeProvider } from '@repo/ui/components/theme-provider';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const AppProvider = () => {
   return (
     <ThemeProvider defaultTheme="system" storageKey="riadom-theme">
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
         <RouterProvider router={router} />
         <Toaster richColors closeButton position="top-center" />
       </QueryClientProvider>
