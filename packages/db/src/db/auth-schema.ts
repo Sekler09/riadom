@@ -16,12 +16,13 @@ export const user = pgTable(
     email: text('email').notNull().unique(),
     emailVerified: boolean('email_verified').default(false).notNull(),
     image: text('image'),
-    tgUsername: text('tg_username'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at')
       .defaultNow()
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
+    tgUsername: text('tg_username'),
+    isOnboarded: boolean('is_onboarded').default(false).notNull(),
   },
   (table) => [
     uniqueIndex('user_tg_username_uidx')

@@ -15,6 +15,9 @@ const authClient = createAuthClient({
           type: 'string',
           required: false,
         },
+        isOnboarded: {
+          type: 'boolean',
+        },
       },
     }),
   ],

@@ -30,6 +30,12 @@ function createAuth(env: EnvConfig) {
           input: true,
           returned: true,
         },
+        isOnboarded: {
+          type: 'boolean',
+          defaultValue: false,
+          required: true,
+          returned: true,
+        },
       },
     },
     databaseHooks: {
