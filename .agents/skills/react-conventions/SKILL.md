@@ -44,9 +44,9 @@ Rules:
 
 ## 2. File naming & placement
 
-- Component files: `PascalCase.tsx`, filename matches the component name exactly (`Button.tsx` exports `Button`).
-- Hooks: `camelCase.ts` starting with `use` (`usePostsQuery.ts`).
-- Everything else (utils, types, stores): `camelCase.ts`.
+- All filenames are `kebab-case`, including component files: `auth-layout.tsx` exports `AuthLayout`, `profile-page.tsx` exports `ProfilePage`.
+- Hooks: `use-<thing>-<kind>.ts` (`use-posts-query.ts` exports `usePostsQuery`).
+- Everything else (utils, types, stores): `kebab-case.ts`.
 - No barrel (`index.ts` re-export) files, anywhere. Import directly from the source file. This avoids circular-dependency footguns and keeps HMR/tree-shaking fast.
 
 ## 3. Folder structure (bulletproof-react style)
@@ -85,26 +85,42 @@ Ask "would this hook make sense with zero knowledge of Riadom's domain?" — if 
 **Query key factories** — one per feature, in `features/<feature>/api/keys.ts`:
 
 ```ts
-export const postKeys = {
+const postKeys = {
   all: ['posts'] as const,
   lists: () => [...postKeys.all, 'list'] as const,
   list: (filters: PostFilters) => [...postKeys.lists(), filters] as const,
   detail: (id: string) => [...postKeys.all, 'detail', id] as const,
 };
+
+export { postKeys };
 ```
 
 Never write ad-hoc array keys inline in a `useQuery` call — always go through the factory, so invalidation stays consistent.
 
-**Hooks** — one hook per query/mutation, colocated in `features/<feature>/api/`:
+**Query modules** — one query per file in `features/<feature>/api/use-<thing>-query.ts`, always in the same order: private fetcher, exported `queryOptions` factory, exported hook. See [`features/auth/api/use-session-query.ts`](../../../apps/web/src/features/auth/api/use-session-query.ts) for the reference implementation.
 
 ```ts
-const usePostsQuery = (filters: PostFilters) => {
-  return useQuery({
+const fetchPosts = async (filters: PostFilters) => {
+  const { data } = await apiClient.get('/posts', { params: filters });
+  return data;
+};
+
+const postsQueryOptions = (filters: PostFilters) =>
+  queryOptions({
     queryKey: postKeys.list(filters),
     queryFn: () => fetchPosts(filters),
   });
-};
+
+const usePostsQuery = (filters: PostFilters) =>
+  useQuery(postsQueryOptions(filters));
+
+export { postsQueryOptions, usePostsQuery };
 ```
+
+Two rules that make this shape safe to reuse:
+
+- **The fetcher throws on failure.** Never return `null`/`undefined` for an error — a failed request must land in `isError`, not look like an empty-but-successful result. Clients that hand back `{ data, error }` instead of throwing (Better Auth, `@better-fetch/fetch`) need the error re-thrown explicitly in the fetcher.
+- **No `select` in the exported `queryOptions`.** `select` is observer-only: `queryClient.fetchQuery` / `ensureQueryData` in a route loader silently ignore it, so the same options object would hand the loader a different shape than the hook. Keep the shared options consumer-agnostic and narrow the data at the call site.
 
 **Loading pattern — prefetch in the loader, read in the component.** The route loader ensures the cache is warm before navigation completes; the component still calls the same hook so it stays reactive to refetches/invalidation:
 
@@ -112,10 +128,7 @@ const usePostsQuery = (filters: PostFilters) => {
 // routes/posts.tsx
 export const Route = createFileRoute("/posts")({
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData({
-      queryKey: postKeys.list(defaultFilters),
-      queryFn: () => fetchPosts(defaultFilters),
-    }),
+    queryClient.ensureQueryData(postsQueryOptions(defaultFilters)),
   errorComponent: PostsErrorView,
   pendingComponent: PostsPendingView,
   component: PostsRoute,
@@ -197,10 +210,10 @@ Don't reach for `React.memo`, `useMemo`, or `useCallback` by default. Add them o
 
 - [ ] `const X = () => {}`, named export, no default export
 - [ ] `type XProps = {...}` directly above, co-located
-- [ ] Filename is `PascalCase.tsx` matching the component name
+- [ ] Filename is `kebab-case.tsx` matching the component name (`auth-layout.tsx` -> `AuthLayout`)
 - [ ] Lives in the right place: shared (`components/`) vs feature-owned (`features/<x>/components/`)
 - [ ] No barrel file added
-- [ ] Data fetching goes through a query-key-factory + colocated hook, not an inline `useQuery`
+- [ ] Data fetching goes through key factory -> throwing fetcher -> `queryOptions` -> hook, not an inline `useQuery`
 - [ ] Variant styling via `cva`, not hand-written conditionals
 - [ ] No new global state unless it's genuinely cross-feature client-only state
 - [ ] Any form has its own `use<FormName>Form` hook — no `useForm`/resolver/submit logic inline in the component

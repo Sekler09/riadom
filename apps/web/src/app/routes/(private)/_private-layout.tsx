@@ -1,13 +1,15 @@
 import { paths } from '@/constants/paths';
-import { getSession } from '@/features/auth/api/auth-client';
+import { sessionQueryOptions } from '@/features/auth/api/use-session-query';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/(private)/_private-layout')({
   component: () => <Outlet />,
-  beforeLoad: async () => {
-    const { data } = await getSession();
+  beforeLoad: async ({ context: { queryClient } }) => {
+    const sessionData = await queryClient.ensureQueryData(
+      sessionQueryOptions(),
+    );
 
-    if (!data?.session) {
+    if (!sessionData) {
       throw redirect({ to: paths.signIn });
     }
   },

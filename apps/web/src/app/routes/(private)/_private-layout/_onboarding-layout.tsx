@@ -1,13 +1,17 @@
 import { paths } from '@/constants/paths';
-import { getSession } from '@/features/auth/api/auth-client';
+import { sessionQueryOptions } from '@/features/auth/api/use-session-query';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/(private)/_private-layout/_onboarding-layout')({
+export const Route = createFileRoute(
+  '/(private)/_private-layout/_onboarding-layout',
+)({
   component: Outlet,
-  beforeLoad: async () => {
-    const { data } = await getSession();
+  beforeLoad: async ({ context: { queryClient } }) => {
+    const sessionData = await queryClient.ensureQueryData(
+      sessionQueryOptions(),
+    );
 
-    if (data?.user?.isOnboarded) {
+    if (sessionData?.user?.isOnboarded) {
       throw redirect({ to: paths.profile });
     }
   },

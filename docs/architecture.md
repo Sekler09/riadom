@@ -34,7 +34,7 @@ riadom/
 | ----------------- | ------------------------------------------------------------ |
 | `@repo/contracts` | Single source of truth for API request/response shapes (Zod) |
 | `@repo/db`        | Drizzle schema, migrations, and `createDb()` client factory  |
-| `@repo/ui`        | Design system primitives only — Button, Card, Input, theme    |
+| `@repo/ui`        | Design system primitives only — Button, Card, Input, theme   |
 | `apps/web`        | Product UI, feature modules, routing, app composition        |
 | `apps/api`        | HTTP API, business logic, Better Auth, data access           |
 
@@ -88,12 +88,12 @@ There is no `apps/web/src/components/` directory yet — shared, non-feature UI 
 
 ### Current routes
 
-| Path        | Feature  | Page component                          |
-| ----------- | -------- | --------------------------------------- |
-| `/`         | landing  | `features/landing/pages/landing-page`   |
-| `/sign-in`  | auth     | `features/auth/pages/sign-in-page`      |
-| `/sign-up`  | auth     | `features/auth/pages/sign-up-page`      |
-| `/profile`  | auth     | `features/auth/pages/profile-page`      |
+| Path       | Feature | Page component                        |
+| ---------- | ------- | ------------------------------------- |
+| `/`        | landing | `features/landing/pages/landing-page` |
+| `/sign-in` | auth    | `features/auth/pages/sign-in-page`    |
+| `/sign-up` | auth    | `features/auth/pages/sign-up-page`    |
+| `/profile` | auth    | `features/auth/pages/profile-page`    |
 
 Routes are thin: they import a page from a feature and wire search-param validation or loaders. Route files live in `app/routes/`; page components live in `features/<name>/pages/`.
 
@@ -231,13 +231,13 @@ class HealthResponseDto extends createZodDto(HealthResponseSchema) {}
 
 Auth runs on Better Auth with the Drizzle adapter and Telegram OIDC.
 
-| Layer   | Location                              | Role                                      |
-| ------- | ------------------------------------- | ----------------------------------------- |
-| Server  | `apps/api/src/auth/create-auth.ts`    | `betterAuth()` config, DB hooks, plugins  |
-| NestJS  | `AuthModule.forRootAsync` in app module | Mounts auth routes, disables default body parser |
-| Client  | `apps/web/src/features/auth/api/auth-client.ts` | React client, session hooks, Telegram sign-in |
-| Schema  | `packages/db/src/db/auth-schema.ts`   | user, session, account, verification tables |
-| Errors  | `packages/contracts/src/auth-errors.ts` | Shared auth error codes for redirects   |
+| Layer  | Location                                        | Role                                             |
+| ------ | ----------------------------------------------- | ------------------------------------------------ |
+| Server | `apps/api/src/auth/create-auth.ts`              | `betterAuth()` config, DB hooks, plugins         |
+| NestJS | `AuthModule.forRootAsync` in app module         | Mounts auth routes, disables default body parser |
+| Client | `apps/web/src/features/auth/api/auth-client.ts` | React client, session hooks, Telegram sign-in    |
+| Schema | `packages/db/src/db/auth-schema.ts`             | user, session, account, verification tables      |
+| Errors | `packages/contracts/src/auth-errors.ts`         | Shared auth error codes for redirects            |
 
 The web app proxies `/api` to the API in dev. Auth requests use cookie credentials (`withCredentials: true` / `credentials: 'include'`).
 
@@ -301,15 +301,15 @@ Both `apps/web` and `apps/api` import from the same schema. The web client valid
 
 ### Installed
 
-| Concern        | Library                                         | Where used                          |
-| -------------- | ----------------------------------------------- | ----------------------------------- |
-| Routing        | `@tanstack/react-router`                        | `apps/web/src/app/routes/`          |
-| Server cache   | `@tanstack/react-query`                         | `apps/web/src/lib/query-client.ts`  |
-| API client     | Axios                                           | `apps/web/src/lib/api-client.ts`    |
-| Auth           | `better-auth`, `better-auth-telegram`           | api + web auth feature              |
-| Backend config | `@nestjs/config`                                | `apps/api/src/config/env.ts`        |
-| Database       | Drizzle ORM + postgres.js                       | `@repo/db`                          |
-| Validation     | Zod                                             | `@repo/contracts`, env schemas      |
+| Concern        | Library                               | Where used                         |
+| -------------- | ------------------------------------- | ---------------------------------- |
+| Routing        | `@tanstack/react-router`              | `apps/web/src/app/routes/`         |
+| Server cache   | `@tanstack/react-query`               | `apps/web/src/lib/query-client.ts` |
+| API client     | Axios                                 | `apps/web/src/lib/api-client.ts`   |
+| Auth           | `better-auth`, `better-auth-telegram` | api + web auth feature             |
+| Backend config | `@nestjs/config`                      | `apps/api/src/config/env.ts`       |
+| Database       | Drizzle ORM + postgres.js             | `@repo/db`                         |
+| Validation     | Zod                                   | `@repo/contracts`, env schemas     |
 
 ### Not yet added
 
@@ -319,7 +319,9 @@ Both `apps/web` and `apps/api` import from the same schema. The web client valid
 | App state | `zustand`                                       |
 | PostGIS   | Drizzle + PostGIS extension                     |
 
-When adding TanStack Query data layers for new features, follow the [Bulletproof API layer pattern](https://github.com/alan2207/bulletproof-react/blob/master/docs/api-layer.md): fetcher function → `queryOptions` → hook, colocated in `features/<name>/api/`.
+When adding TanStack Query data layers for new features, follow the [Bulletproof API layer pattern](https://github.com/alan2207/bulletproof-react/blob/master/docs/api-layer.md): key factory → fetcher function → `queryOptions` → hook, colocated in `features/<name>/api/`.
+
+Reference implementation: [`apps/web/src/features/auth/api/keys.ts`](../apps/web/src/features/auth/api/keys.ts) and [`apps/web/src/features/auth/api/use-session-query.ts`](../apps/web/src/features/auth/api/use-session-query.ts).
 
 ---
 
