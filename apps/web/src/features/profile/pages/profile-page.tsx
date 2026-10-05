@@ -77,7 +77,11 @@ const ProfilePage = () => {
         ) : null}
       </dl>
 
-      <Button type="button" variant="outline" onClick={() => void handleSignOut()}>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => void handleSignOut()}
+      >
         Log out
       </Button>
     </main>

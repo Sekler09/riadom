@@ -7,6 +7,7 @@ import {
   index,
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
+import { profile } from './profile-schema';
 
 export const user = pgTable(
   'user',
@@ -90,9 +91,13 @@ export const verification = pgTable(
   (table) => [index('verification_identifier_idx').on(table.identifier)],
 );
 
-export const userRelations = relations(user, ({ many }) => ({
+export const userRelations = relations(user, ({ many, one }) => ({
   sessions: many(session),
   accounts: many(account),
+  profile: one(profile, {
+    fields: [user.id],
+    references: [profile.userId],
+  }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({

@@ -7,6 +7,8 @@ export const envFilePaths = [
   resolve(__dirname, '../../.env'),
 ];
 
+export const ENV_CONFIG = Symbol('ENV_CONFIG');
+
 export const envSchema = z.object({
   PORT: z.coerce.number().default(4000),
   CORS_ORIGIN: z.string().default('http://localhost:3000'),
@@ -22,6 +24,11 @@ export const envSchema = z.object({
   TELEGRAM_OIDC_CLIENT_SECRET: z.string().default(''),
   TELEGRAM_BOT_NAME: z.string().default(''),
   NGROK_DOMAIN: z.string().optional(),
+  S3_ENDPOINT: z.string().default('http://localhost:9000'),
+  S3_ACCESS_KEY: z.string().min(1),
+  S3_SECRET_KEY: z.string().min(1),
+  S3_BUCKET: z.string().min(1),
+  S3_REGION: z.string().default('us-east-1'),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
@@ -57,34 +64,12 @@ export function validateEnv(config: Record<string, unknown>): EnvConfig {
 export function getEnvConfig(
   configService: ConfigService<EnvConfig, true>,
 ): EnvConfig {
-  return {
-    PORT: configService.get('PORT', { infer: true }),
-    CORS_ORIGIN: configService.get('CORS_ORIGIN', { infer: true }),
-    DATABASE_URL: configService.get('DATABASE_URL', { infer: true }),
-    BETTER_AUTH_SECRET: configService.get('BETTER_AUTH_SECRET', {
-      infer: true,
-    }),
-    BETTER_AUTH_URL: configService.get('BETTER_AUTH_URL', { infer: true }),
-    BETTER_AUTH_API_KEY: configService.get('BETTER_AUTH_API_KEY', {
-      infer: true,
-    }),
-    TELEGRAM_BOT_TOKEN: configService.get('TELEGRAM_BOT_TOKEN', {
-      infer: true,
-    }),
-    TELEGRAM_BOT_NAME: configService.get('TELEGRAM_BOT_NAME', {
-      infer: true,
-    }),
-    TELEGRAM_OIDC_CLIENT_ID: configService.get('TELEGRAM_OIDC_CLIENT_ID', {
-      infer: true,
-    }),
-    TELEGRAM_OIDC_CLIENT_SECRET: configService.get(
-      'TELEGRAM_OIDC_CLIENT_SECRET',
-      {
-        infer: true,
-      },
-    ),
-    NGROK_DOMAIN: configService.get('NGROK_DOMAIN', { infer: true }),
-  };
+  return Object.fromEntries(
+    Object.keys(envSchema.shape).map((key) => [
+      key,
+      configService.get(key as keyof EnvConfig, { infer: true }),
+    ]),
+  ) as EnvConfig;
 }
 
 export { buildNgrokOrigin, buildTrustedOrigins, resolveBetterAuthUrl };

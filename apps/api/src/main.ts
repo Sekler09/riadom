@@ -2,19 +2,18 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import type { EnvConfig } from './config/env';
-import { buildTrustedOrigins } from './config/env';
+
+import { buildTrustedOrigins, getEnvConfig } from './config/env';
+import { ZodValidationPipe } from 'nestjs-zod';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
   });
 
-  const configService = app.get(ConfigService<EnvConfig, true>);
-  const env = {
-    CORS_ORIGIN: configService.get('CORS_ORIGIN', { infer: true }),
-    NGROK_DOMAIN: configService.get('NGROK_DOMAIN', { infer: true }),
-  };
+  const env = getEnvConfig(app.get(ConfigService));
+
+  app.useGlobalPipes(new ZodValidationPipe());
 
   app.setGlobalPrefix('api');
   app.enableCors({
@@ -22,7 +21,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(configService.get('PORT', { infer: true }));
+  await app.listen(env.PORT);
 }
 
 void bootstrap();

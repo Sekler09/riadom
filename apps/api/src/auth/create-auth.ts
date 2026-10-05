@@ -90,4 +90,8 @@ function createAuth(env: EnvConfig) {
   });
 }
 
+type UserSession = ReturnType<typeof createAuth>['$Infer']['Session'];
+type User = UserSession['user'];
+
 export { createAuth };
+export type { UserSession, User };

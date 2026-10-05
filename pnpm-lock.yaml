@@ -32,12 +32,24 @@ importers:
 
   apps/api:
     dependencies:
+      '@aws-sdk/client-s3':
+        specifier: ^3.1136.0
+        version: 3.1136.0
+      '@aws-sdk/s3-request-presigner':
+        specifier: ^3.1136.0
+        version: 3.1136.0
       '@better-auth/drizzle-adapter':
-        specifier: ^1.6.26
-        version: 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))
+        specifier: 1.6.26
+        version: 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))
       '@better-auth/infra':
         specifier: ^0.3.7
-        version: 0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)
+        version: 0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)
+      '@nestjs-cls/transactional':
+        specifier: ^4.0.1
+        version: 4.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs-cls/transactional-adapter-drizzle-orm':
+        specifier: ^2.0.1
+        version: 2.0.1(@nestjs-cls/transactional@4.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -58,16 +70,22 @@ importers:
         version: link:../../packages/db
       '@thallesp/nestjs-better-auth':
         specifier: ^2.7.0
-        version: 2.7.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(express@5.2.1)(graphql@16.14.2)(qs@6.15.3)(typescript@6.0.3)
+        version: 2.7.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(express@5.2.1)(graphql@16.14.2)(qs@6.15.3)(typescript@6.0.3)
       better-auth:
         specifier: 1.6.26
-        version: 1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       better-auth-telegram:
         specifier: ^2.0.1
-        version: 2.0.1(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 2.0.1(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.3(kysely@0.29.4)(postgres@3.4.9)
+      nestjs-cls:
+        specifier: ^7.0.1
+        version: 7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
       nestjs-zod:
-        specifier: ^4.3.1
-        version: 4.3.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(zod@4.4.3)
+        specifier: ^5.5.0
+        version: 5.5.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)(zod@4.4.3)
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -158,19 +176,22 @@ importers:
     dependencies:
       '@base-ui/react':
         specifier: ^1.6.0
-        version: 1.6.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 1.6.0(@date-fns/tz@1.5.0)(@types/react@19.2.2)(date-fns@4.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@base-ui/utils':
         specifier: ^0.3.1
         version: 0.3.1(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@better-auth/infra':
         specifier: ^0.3.7
-        version: 0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)
+        version: 0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)
       '@floating-ui/dom':
         specifier: ^1.8.0
         version: 1.8.0
       '@floating-ui/utils':
         specifier: ^0.2.12
         version: 0.2.12
+      '@hookform/resolvers':
+        specifier: ^5.9.1
+        version: 5.9.1(@sinclair/typebox@0.34.52)(@standard-schema/spec@1.1.0)(ajv-formats@3.0.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.87.0(react@19.2.0))(zod@4.4.3)
       '@repo/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -191,16 +212,22 @@ importers:
         version: 1.19.0
       better-auth:
         specifier: 1.6.26
-        version: 1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       better-auth-telegram:
         specifier: ^2.0.1
-        version: 2.0.1(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 2.0.1(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+      date-fns:
+        specifier: ^4.4.0
+        version: 4.4.0
       react:
         specifier: ^19.2.0
         version: 19.2.0
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: ^7.87.0
+        version: 7.87.0(react@19.2.0)
       scheduler:
         specifier: ^0.25.0
         version: 0.25.0
@@ -283,7 +310,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.45.2
-        version: 0.45.2(kysely@0.29.4)(postgres@3.4.9)
+        version: 0.45.3(kysely@0.29.4)(postgres@3.4.9)
       postgres:
         specifier: ^3.4.9
         version: 3.4.9
@@ -305,7 +332,7 @@ importers:
         version: 17.4.2
       drizzle-kit:
         specifier: ^0.31.10
-        version: 0.31.10
+        version: 0.31.11
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.7.0)
@@ -377,7 +404,7 @@ importers:
     dependencies:
       '@base-ui/react':
         specifier: ^1.6.0
-        version: 1.6.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 1.6.0(@date-fns/tz@1.5.0)(@types/react@19.2.2)(date-fns@4.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@base-ui/utils':
         specifier: ^0.3.1
         version: 0.3.1(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -393,12 +420,18 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      date-fns:
+        specifier: ^4.4.0
+        version: 4.4.0
       lucide-react:
         specifier: ^0.487.0
         version: 0.487.0(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
+      react-day-picker:
+        specifier: ^10.0.1
+        version: 10.0.1(@types/react@19.2.2)(react@19.2.0)
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
@@ -476,6 +509,82 @@ packages:
   '@antfu/ni@25.0.0':
     resolution: {integrity: sha512-9q/yCljni37pkMr4sPrI3G4jqdIk074+iukc5aFJl7kmDCCsiJrbZ6zKxnES1Gwg+i9RcDZwvktl23puGslmvA==}
     hasBin: true
+
+  '@aws-sdk/checksums@3.1001.0':
+    resolution: {integrity: sha512-6uTniZc87q+B5eXouGTl+7Tmc482rEeCcvxpsvREP8EfF0gvloRZ41UOA9sbSJlyy8TbqIBXb3kKfKarEArUQA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/client-s3@3.1136.0':
+    resolution: {integrity: sha512-1FUvu6nuUi3y9VjQAYootkfWKQqZ8aT8wZoV5I0bpeMkGVgntYpJ11xLicGotGE6E1qtLXB+GdOJM9B+OQYWDA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/core@3.978.0':
+    resolution: {integrity: sha512-2yX9LUmxPklVjSGTb8dfnWRJSiFQ3TeH2nn7G1mdKHTfnabzF0+gfrS8rYfLWmZrQ8A3mEcxMJjRc51dL5KWaA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-env@3.972.71':
+    resolution: {integrity: sha512-JN+JHruYZw3GUZB8YGAlDk4wTDPOEAEEdEzj5nS0xodWR4smzHsN7PnK2j6IeOsDIj2aqua5DSbhXl9Gtf90FQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-http@3.972.73':
+    resolution: {integrity: sha512-uyYYnJOnlis8uQzaYGPd7N1JoioCoNpXgnkXYixsWJXHXgXyYi8WXJSDfofxJeWfQIGWLe2Nwyq60Uc7MZdVOg==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-ini@3.973.16':
+    resolution: {integrity: sha512-i++ly+0Uxa+u3ebSSyr0S/3CFhFJDxCXT3+Zj+mW2bXenEx5bKGCdTIKFu39SgXBNhWDjex/8cXUx9MUTMCrTw==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-login@3.972.78':
+    resolution: {integrity: sha512-eUtswnXu0+Ii9ieRK+0L7aPFV3Z/dnW2VntJzjBP9xs8s+8p5nBNuymIXtXwZ+5r5+XJP3e32nMkuZ/r0HozEA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-node@3.972.83':
+    resolution: {integrity: sha512-jdso7ejzfRnatxMUZK4S/U6KbaDPCvfIV4XL+IQAPFDBt5rj5Fq595euqlK8Le4lNCMFR9oUpt+1l0aMgaayOQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-process@3.972.71':
+    resolution: {integrity: sha512-lYmXJa4gvq4xN1lrT5NiP5vIYYKcGWAdj8y+8o6dlcateB5eF3Dn8DtmjjHKfMBrTPAMr2pebIiX/UOj8c1/UA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-sso@3.973.15':
+    resolution: {integrity: sha512-6Jhcf4v0pSFdjk1EW2kvzuEBKD+UZ2uNcHUIglKKLndD20YhvkL2kdmDOV5/j4mYuWWwe/a1FQ1aomU86/Cg5Q==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/credential-provider-web-identity@3.972.77':
+    resolution: {integrity: sha512-uylIQSUWpfLuH2LovxEEfwzJGM/SabLOfLMg6YXu/E8jJEKUdpdILCVCQCdFvHyu/7dLJOHPMfrSwduxO56NkQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/middleware-sdk-s3@3.972.76':
+    resolution: {integrity: sha512-NfnTkVUTBKTBuBgqaapFK9r3YdkKt1b2oRvgLzZq91bwNKh6ZS0S7sEcheguttREaL4iyfs/xQnqD7Z7AsWSsA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/nested-clients@3.997.45':
+    resolution: {integrity: sha512-mooq9Q+jLa18VoM7HouczmslZU60iiB0aKc/Ztnq/luIL1ud0z4DnYprLR/ZO1gp331S9tJctM1HZr7u6YKBXQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/s3-request-presigner@3.1136.0':
+    resolution: {integrity: sha512-SYH0+Eg8+4Tb03s3rfpNVtWEtgqmSf9LCieuCam/hk9bTib72uTjVz5dENCIkRkw3baq1QsePmjiN7IRyqHcnQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/signature-v4-multi-region@3.996.46':
+    resolution: {integrity: sha512-L+2xZTye/2T96f3lwCws0Zw6GG2JHZW9e8FpVgGBeeExSKyeoZ6CWRpBml/7DNiK/O26jrgPM9F+Ay8VkgzUWQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/token-providers@3.1129.0':
+    resolution: {integrity: sha512-Sbl3rpzQdsG4ZK2zh0JWUYyZPKKorJlVOddA2T0DVbKJFrsW8J6wgnslxxUH04+WaBMr4A1HzJZvZX0xUvkniA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/types@3.974.5':
+    resolution: {integrity: sha512-LkwLL2BLbC6wNNm4JaH9mbEqBMdOZCct6VAYqhdN4U1xrWM+fUJQEfbHwQgDypapOWTRtlk25akb5afM0P8CIQ==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/xml-builder@3.972.40':
+    resolution: {integrity: sha512-wlFmCIGUlwF4zx/kncw+bmxTQh1HeSJq4mYV/V5cZUSJadDP3kXvGW8Rn21cimj/7y9ju+47oYWXi97vF7czaA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws/lambda-invoke-store@0.3.0':
+    resolution: {integrity: sha512-sl4Bm6yiMNYrZKkqqDFWN0UfnWhlS8ivKxrYl+6t0gCLrqr8y3B2IqZZbFRkfaVVp7C/baApyh71P+LeE1A2sQ==}
+    engines: {node: '>=18.0.0'}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -843,6 +952,9 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@date-fns/tz@1.5.0':
+    resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
   '@dotenvx/dotenvx@1.75.1':
     resolution: {integrity: sha512-/BITOC9dmS/edY2zQwZNicQ059O6RKabtQfyEafV0nGtfYRNHYy1DIPiYVcov40+tob9hfmBnbR963dS+EQ1DQ==}
@@ -1380,6 +1492,84 @@ packages:
     peerDependencies:
       hono: ^4
 
+  '@hookform/resolvers@5.9.1':
+    resolution: {integrity: sha512-7b7vsbraJxKgjVSA1Nur9tLwj539WGJUBLA7QNvXnFoT2pM5Z7G+6rlukk4B2/QrTZy6huRtH6wKeESPKuIr6w==}
+    peerDependencies:
+      '@sinclair/typebox': '>=0.25.24'
+      '@standard-schema/spec': ^1.0.0
+      '@typeschema/main': '>=0.13.7'
+      '@vinejs/vine': ^2.0.0 || ^3.0.0 || ^4.0.0
+      ajv: ^8.12.0
+      ajv-errors: ^3.0.0
+      ajv-formats: ^2.1.1
+      arktype: ^2.0.0
+      ata-validator: ^1.2.0
+      class-transformer: '>=0.4.0'
+      class-validator: '>=0.12.0'
+      computed-types: ^1.0.0
+      effect: ^3.10.3
+      fluentvalidation-ts: ^3.0.0
+      fp-ts: ^2.7.0
+      io-ts: ^2.0.0
+      joi: ^17.0.0 || ^18.0.0
+      nope-validator: '>=0.12.0'
+      react-hook-form: ^7.55.0
+      superstruct: '>=0.12.0'
+      typanion: ^3.3.2
+      valibot: '>=0.31.0 || ^1.0.0-beta.4 || ^1.0.0-rc'
+      vest: '>=6.0.0'
+      yup: ^1.0.0
+      zod: ^4.4.3
+    peerDependenciesMeta:
+      '@sinclair/typebox':
+        optional: true
+      '@standard-schema/spec':
+        optional: true
+      '@typeschema/main':
+        optional: true
+      '@vinejs/vine':
+        optional: true
+      ajv:
+        optional: true
+      ajv-errors:
+        optional: true
+      ajv-formats:
+        optional: true
+      arktype:
+        optional: true
+      ata-validator:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+      computed-types:
+        optional: true
+      effect:
+        optional: true
+      fluentvalidation-ts:
+        optional: true
+      fp-ts:
+        optional: true
+      io-ts:
+        optional: true
+      joi:
+        optional: true
+      nope-validator:
+        optional: true
+      superstruct:
+        optional: true
+      typanion:
+        optional: true
+      valibot:
+        optional: true
+      vest:
+        optional: true
+      yup:
+        optional: true
+      zod:
+        optional: true
+
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
     engines: {node: '>=18.18.0'}
@@ -1714,20 +1904,23 @@ packages:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
 
-  '@nest-zod/z@2.0.0':
-    resolution: {integrity: sha512-OqmJUZlpcx9ECzPYSIjaR/q/xLKrm9FkV+0FIWLEb9MVc9YeP21GmnQJBxE1dPRlLJ1kybNFBlt4D/PB8YAPkA==}
+  '@nestjs-cls/transactional-adapter-drizzle-orm@2.0.1':
+    resolution: {integrity: sha512-RcBStN2+yGwj0P7viBTCyyBv3BkRxk9kWqu+FVKucmAXEXUufoqY40Bh/qiJYobBFTsoJXgjY6cOc7LEJD5lNw==}
+    engines: {node: '>=22'}
     peerDependencies:
-      '@nestjs/common': ^10.0.0 || ^11.0.0
-      '@nestjs/core': ^10.0.0 || ^11.0.0
-      '@nestjs/swagger': ^7.4.2 || ^8.0.0 || ^11.0.0
-      zod: ^4.4.3
-    peerDependenciesMeta:
-      '@nestjs/common':
-        optional: true
-      '@nestjs/core':
-        optional: true
-      '@nestjs/swagger':
-        optional: true
+      '@nestjs-cls/transactional': ^4.0.0
+      drizzle-orm: ^0 || >=1.0.0-rc.1 <2.0.0
+      nestjs-cls: ^7.0.0
+
+  '@nestjs-cls/transactional@4.0.1':
+    resolution: {integrity: sha512-rdEAH7CLE7tQanNBKFQzbE4ZRROu3AxhV/Uz7p1EGLrA9EvCo4PhI92UiLXVd7gQrpnNyvo5tccksLkxcS933A==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@nestjs/common': '>= 10 < 13'
+      '@nestjs/core': '>= 10 < 13'
+      nestjs-cls: ^7.0.0
+      reflect-metadata: '*'
+      rxjs: '>= 7'
 
   '@nestjs/cli@11.0.24':
     resolution: {integrity: sha512-aIHxQLSYtXShifA3zwWIeznEsZnNa3Iz2QRykFj+sl9IcbERBHr5nH87FRgywM+He3NxoF5WazHfR8FsmVeWxw==}
@@ -2005,8 +2198,35 @@ packages:
   '@sinonjs/fake-timers@15.4.0':
     resolution: {integrity: sha512-DsG+8/LscQIQg68J6Ef3dv10u6nVyetYn923s3/sus5eaGfTo1of5WMZSLf0UJc9KDuKPilPH0UDJCjvNbDNCA==}
 
+  '@smithy/core@3.34.1':
+    resolution: {integrity: sha512-dLcOUxz8YCv1RZUMKq6GbyUf95pLbrqh34bPvpCZ1+CByFF31BEAFewZjsGCnVsZTKdThNENfGyAgk2TJqVwSw==}
+    engines: {node: '>=18.0.0'}
+
+  '@smithy/credential-provider-imds@4.5.2':
+    resolution: {integrity: sha512-A9uSdn72ozbRUSit0eib0TW7nXuNPlaeM0zcGkJ+nE6tFcSDbnmtwoxbTCFBukVQcszDAyvsd7+rTduPTXpygg==}
+    engines: {node: '>=18.0.0'}
+
+  '@smithy/fetch-http-handler@5.8.0':
+    resolution: {integrity: sha512-ycSJu3tFAQ4v04CBB0agqFMVsSQ1iG3yw+SpgxRqKfaURpQD4CZ8Wn0zPMmSnOuTpTh65Vz+EA0rMrw089wvkA==}
+    engines: {node: '>=18.0.0'}
+
+  '@smithy/node-http-handler@4.12.1':
+    resolution: {integrity: sha512-ThMkboGeONWXAelq9FvGsuJC4rOi+qyC4/zhUF58xYpxUg5sQKx2VXZYJmtNjr4dSuBJ1HeJXETQILCz3wOHvw==}
+    engines: {node: '>=18.0.0'}
+
+  '@smithy/signature-v4@5.7.3':
+    resolution: {integrity: sha512-7ImGm+FkHRLcBaRttIAMZ6bzJZWb2cJGoYjq46F2UjycujWzrL9GEN9h4w7eQyXJYnltrUhxbbieBAIRrdqpow==}
+    engines: {node: '>=18.0.0'}
+
+  '@smithy/types@4.18.0':
+    resolution: {integrity: sha512-CgB6HHWer/vrKps24ulRIbpcpb7K4xAU7SkZ7YHzBPlwHsvsrCJFEXK421s+cJzX+ZrqtA/TuU5w1HzI7k9N8A==}
+    engines: {node: '>=18.0.0'}
+
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
+  '@standard-schema/utils@0.3.0':
+    resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
 
   '@tailwindcss/node@4.3.3':
     resolution: {integrity: sha512-/T8IKEsf9VTU6tLjgC7+sv2mOPtQxzE2jMw7u4Tt40Tx+QSZxpzh95/H6cMKoja9XuW7iMdLJYBB0o9G1CaAgg==}
@@ -2902,6 +3122,9 @@ packages:
     resolution: {integrity: sha512-2cGmJupaNgg+QUwVLAucDuWuoMZ6EX9iHDRswZ5lsNYEmwPaRknMPCLZz07yTzVq/83p4o/wzbDZbBrTvGGTIw==}
     engines: {node: '>=18'}
 
+  bowser@2.14.1:
+    resolution: {integrity: sha512-tzPjzCxygAKWFOJP011oxFHs57HzIhOEracIgAePE4pqB3LikALKnSzUyU4MGs9/iCEUuHlAJTjTc5M+u7YEGg==}
+
   brace-expansion@1.1.12:
     resolution: {integrity: sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==}
 
@@ -3182,6 +3405,9 @@ packages:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
 
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
+
   debounce-fn@4.0.0:
     resolution: {integrity: sha512-8pYCQiL9Xdcg0UPSD3d+0KMlOjp+KGU5EPwYddgzQ7DATsg4fuUDjQtsYLmWjnk2obnNHgV3vE2Y4jejSOJVBQ==}
     engines: {node: '>=10'}
@@ -3295,12 +3521,12 @@ packages:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
-  drizzle-kit@0.31.10:
-    resolution: {integrity: sha512-7OZcmQUrdGI+DUNNsKBn1aW8qSoKuTH7d0mYgSP8bAzdFzKoovxEFnoGQp2dVs82EOJeYycqRtciopszwUf8bw==}
+  drizzle-kit@0.31.11:
+    resolution: {integrity: sha512-YCYqxTLIB2OCqf6w9/Vef13baBVbwQIPcbT4Y56AfO6B9ajZhDhD8Jkveg/hJvT/iuMloKD/IYYkyMMNhr7Kqg==}
     hasBin: true
 
-  drizzle-orm@0.45.2:
-    resolution: {integrity: sha512-kY0BSaTNYWnoDMVoyY8uxmyHjpJW1geOmBMdSSicKo9CIIWkSxMIj2rkeSR51b8KAPB7m+qysjuHme5nKP+E5Q==}
+  drizzle-orm@0.45.3:
+    resolution: {integrity: sha512-CAloER21cDdcgZ1OmjrZX82EeRNsdP+y0onX/eyoYDaYzki/adrAa91lzM5jWh7zZPK4qUbw/6LGv9J+A+uizA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=4'
@@ -3308,6 +3534,7 @@ packages:
       '@libsql/client': '>=0.10.0'
       '@libsql/client-wasm': '>=0.10.0'
       '@neondatabase/serverless': '>=0.10.0'
+      '@netlify/db': '>=0.4.0'
       '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
       '@planetscale/database': '>=1.13'
@@ -3343,6 +3570,8 @@ packages:
       '@libsql/client-wasm':
         optional: true
       '@neondatabase/serverless':
+        optional: true
+      '@netlify/db':
         optional: true
       '@op-engineering/op-sqlite':
         optional: true
@@ -4762,18 +4991,23 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nestjs-zod@4.3.1:
-    resolution: {integrity: sha512-gl10NOf/AhWt4HLcnMI1J0WUlBCKyteJBftD6SwNyX71/vzAorr5MJQWiDJoPPkou9QL2CRHHBtyjr55o7++Xw==}
+  nestjs-cls@7.0.1:
+    resolution: {integrity: sha512-O8i0uguCpzhRlRc0LhdLdfgJQGxVYERHGeIXIryqRKiAXd8ZnNprvMThA4P068n0gqSIaWVJdxv+IoFca/4aqg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@nestjs/common': '>= 10 < 13'
+      '@nestjs/core': '>= 10 < 13'
+      reflect-metadata: '*'
+      rxjs: '>= 7'
+
+  nestjs-zod@5.5.0:
+    resolution: {integrity: sha512-V0WMtmICygYE2RoMKk8ExEeoetkC7PoUmUlZNP4JNk1YgrnUnG1vgkRn2DBNqsDi+Obv3c9AOssmXe/k/AvBOg==}
     peerDependencies:
       '@nestjs/common': ^10.0.0 || ^11.0.0
-      '@nestjs/core': ^10.0.0 || ^11.0.0
       '@nestjs/swagger': ^7.4.2 || ^8.0.0 || ^11.0.0
+      rxjs: ^7.0.0
       zod: ^4.4.3
     peerDependenciesMeta:
-      '@nestjs/common':
-        optional: true
-      '@nestjs/core':
-        optional: true
       '@nestjs/swagger':
         optional: true
 
@@ -5095,10 +5329,26 @@ packages:
     resolution: {integrity: sha512-K5zQjDllxWkf7Z5xJdV0/B0WTNqx6vxG70zJE4N0kBs4LovmEYWJzQGxC9bS9RAKu3bgM40lrd5zoLJ12MQ5BA==}
     engines: {node: '>= 0.10'}
 
+  react-day-picker@10.0.1:
+    resolution: {integrity: sha512-eNh6BlwcYInWaJtRv18mXQ06Ys/H6rdTZAnTaSdOYJuTpwP1JMCHNd1FDRadA+gbeinq+psdULN5Xnowy9mV8w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   react-dom@19.2.0:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
       react: ^19.2.0
+
+  react-hook-form@7.87.0:
+    resolution: {integrity: sha512-zhFzWvLxNHH+8839OnZcUxgMZw88ah2jZWDWvKWgF3Tpbnd0vKL+dlcuU3nZVWESZQjd81EW8K+wU+cYfYAc0w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -5106,8 +5356,8 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-is@19.2.7:
-    resolution: {integrity: sha512-kZFnouyVv7eP/Phmrlo9FK+zcAdriZJvzxXHF1Sl1P377WSGe2G/JxVolhTrB/jeV47lKImhNUsijjHAAbcl/A==}
+  react-is@19.3.0:
+    resolution: {integrity: sha512-UpMYezM4v5/18F28aC66AEsjXIgE02kyEMH6yLdgLXu/UTfa1Ntwck/nNLrbqJsEXW7gPb0coNO9FQse9WTovA==}
 
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
@@ -6113,6 +6363,180 @@ snapshots:
       package-manager-detector: 1.8.0
       tinyexec: 1.2.4
 
+  '@aws-sdk/checksums@3.1001.0':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/client-s3@3.1136.0':
+    dependencies:
+      '@aws-sdk/checksums': 3.1001.0
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/credential-provider-node': 3.972.83
+      '@aws-sdk/middleware-sdk-s3': 3.972.76
+      '@aws-sdk/signature-v4-multi-region': 3.996.46
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/fetch-http-handler': 5.8.0
+      '@smithy/node-http-handler': 4.12.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/core@3.978.0':
+    dependencies:
+      '@aws-sdk/types': 3.974.5
+      '@aws-sdk/xml-builder': 3.972.40
+      '@aws/lambda-invoke-store': 0.3.0
+      '@smithy/core': 3.34.1
+      '@smithy/signature-v4': 5.7.3
+      '@smithy/types': 4.18.0
+      bowser: 2.14.1
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-env@3.972.71':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-http@3.972.73':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/fetch-http-handler': 5.8.0
+      '@smithy/node-http-handler': 4.12.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-ini@3.973.16':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/credential-provider-env': 3.972.71
+      '@aws-sdk/credential-provider-http': 3.972.73
+      '@aws-sdk/credential-provider-login': 3.972.78
+      '@aws-sdk/credential-provider-process': 3.972.71
+      '@aws-sdk/credential-provider-sso': 3.973.15
+      '@aws-sdk/credential-provider-web-identity': 3.972.77
+      '@aws-sdk/nested-clients': 3.997.45
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/credential-provider-imds': 4.5.2
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-login@3.972.78':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/nested-clients': 3.997.45
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-node@3.972.83':
+    dependencies:
+      '@aws-sdk/credential-provider-env': 3.972.71
+      '@aws-sdk/credential-provider-http': 3.972.73
+      '@aws-sdk/credential-provider-ini': 3.973.16
+      '@aws-sdk/credential-provider-process': 3.972.71
+      '@aws-sdk/credential-provider-sso': 3.973.15
+      '@aws-sdk/credential-provider-web-identity': 3.972.77
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/credential-provider-imds': 4.5.2
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-process@3.972.71':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-sso@3.973.15':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/nested-clients': 3.997.45
+      '@aws-sdk/token-providers': 3.1129.0
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/credential-provider-web-identity@3.972.77':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/nested-clients': 3.997.45
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/middleware-sdk-s3@3.972.76':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/signature-v4-multi-region': 3.996.46
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/nested-clients@3.997.45':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/signature-v4-multi-region': 3.996.46
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/fetch-http-handler': 5.8.0
+      '@smithy/node-http-handler': 4.12.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/s3-request-presigner@3.1136.0':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/signature-v4-multi-region': 3.996.46
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/signature-v4-multi-region@3.996.46':
+    dependencies:
+      '@aws-sdk/types': 3.974.5
+      '@smithy/signature-v4': 5.7.3
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/token-providers@3.1129.0':
+    dependencies:
+      '@aws-sdk/core': 3.978.0
+      '@aws-sdk/nested-clients': 3.997.45
+      '@aws-sdk/types': 3.974.5
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/types@3.974.5':
+    dependencies:
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws-sdk/xml-builder@3.972.40':
+    dependencies:
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@aws/lambda-invoke-store@0.3.0': {}
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -6386,7 +6810,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@base-ui/react@1.6.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@base-ui/react@1.6.0(@date-fns/tz@1.5.0)(@types/react@19.2.2)(date-fns@4.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@base-ui/utils': 0.3.1(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -6396,7 +6820,9 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
       use-sync-external-store: 1.6.0(react@19.2.0)
     optionalDependencies:
+      '@date-fns/tz': 1.5.0
       '@types/react': 19.2.2
+      date-fns: 4.4.0
 
   '@base-ui/utils@0.3.1(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -6423,19 +6849,19 @@ snapshots:
       nanostores: 1.4.2
       zod: 4.4.3
 
-  '@better-auth/drizzle-adapter@1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))':
+  '@better-auth/drizzle-adapter@1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))':
     dependencies:
       '@better-auth/core': 1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2)
       '@better-auth/utils': 0.4.2
     optionalDependencies:
-      drizzle-orm: 0.45.2(kysely@0.29.4)(postgres@3.4.9)
+      drizzle-orm: 0.45.3(kysely@0.29.4)(postgres@3.4.9)
 
-  '@better-auth/infra@0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)':
+  '@better-auth/infra@0.3.7(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.4.3)':
     dependencies:
       '@better-auth/core': 1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2)
       '@better-auth/utils': 0.4.2
       '@better-fetch/fetch': 1.3.1
-      better-auth: 1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      better-auth: 1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       better-call: 1.3.7(zod@4.4.3)
       jose: 6.2.4
       libphonenumber-js: 1.13.10
@@ -6483,6 +6909,8 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@date-fns/tz@1.5.0': {}
 
   '@dotenvx/dotenvx@1.75.1':
     dependencies:
@@ -6826,6 +7254,17 @@ snapshots:
   '@hono/node-server@1.19.14(hono@4.12.31)':
     dependencies:
       hono: 4.12.31
+
+  '@hookform/resolvers@5.9.1(@sinclair/typebox@0.34.52)(@standard-schema/spec@1.1.0)(ajv-formats@3.0.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.87.0(react@19.2.0))(zod@4.4.3)':
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 7.87.0(react@19.2.0)
+    optionalDependencies:
+      '@sinclair/typebox': 0.34.52
+      '@standard-schema/spec': 1.1.0
+      ajv: 8.20.0
+      ajv-formats: 3.0.1(ajv@8.20.0)
+      zod: 4.4.3
 
   '@humanfs/core@0.19.1': {}
 
@@ -7271,12 +7710,19 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@nest-zod/z@2.0.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(zod@4.4.3)':
+  '@nestjs-cls/transactional-adapter-drizzle-orm@2.0.1(@nestjs-cls/transactional@4.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))':
     dependencies:
-      zod: 4.4.3
-    optionalDependencies:
+      '@nestjs-cls/transactional': 4.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      drizzle-orm: 0.45.3(kysely@0.29.4)(postgres@3.4.9)
+      nestjs-cls: 7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
+
+  '@nestjs-cls/transactional@4.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+    dependencies:
       '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      nestjs-cls: 7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+      rxjs: 7.8.2
 
   '@nestjs/cli@11.0.24(@types/node@24.13.3)(prettier@3.7.4)':
     dependencies:
@@ -7528,7 +7974,42 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
+  '@smithy/core@3.34.1':
+    dependencies:
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@smithy/credential-provider-imds@4.5.2':
+    dependencies:
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@smithy/fetch-http-handler@5.8.0':
+    dependencies:
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@smithy/node-http-handler@4.12.1':
+    dependencies:
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@smithy/signature-v4@5.7.3':
+    dependencies:
+      '@smithy/core': 3.34.1
+      '@smithy/types': 4.18.0
+      tslib: 2.8.1
+
+  '@smithy/types@4.18.0':
+    dependencies:
+      tslib: 2.8.1
+
   '@standard-schema/spec@1.1.0': {}
+
+  '@standard-schema/utils@0.3.0': {}
 
   '@tailwindcss/node@4.3.3':
     dependencies:
@@ -7702,11 +8183,11 @@ snapshots:
 
   '@tanstack/virtual-file-routes@1.162.0': {}
 
-  '@thallesp/nestjs-better-auth@2.7.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(express@5.2.1)(graphql@16.14.2)(qs@6.15.3)(typescript@6.0.3)':
+  '@thallesp/nestjs-better-auth@2.7.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(express@5.2.1)(graphql@16.14.2)(qs@6.15.3)(typescript@6.0.3)':
     dependencies:
       '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      better-auth: 1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      better-auth: 1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript: 6.0.3
     optionalDependencies:
       express: 5.2.1
@@ -8411,14 +8892,14 @@ snapshots:
 
   baseline-browser-mapping@2.10.43: {}
 
-  better-auth-telegram@2.0.1(better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
+  better-auth-telegram@2.0.1(better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
     dependencies:
-      better-auth: 1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      better-auth: 1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
-  better-auth@1.6.26(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  better-auth@1.6.26(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       '@better-auth/core': 1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2)
-      '@better-auth/drizzle-adapter': 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9))
+      '@better-auth/drizzle-adapter': 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9))
       '@better-auth/kysely-adapter': 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)(kysely@0.29.4)
       '@better-auth/memory-adapter': 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)
       '@better-auth/mongo-adapter': 1.6.26(@better-auth/core@1.6.26(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.4)(kysely@0.29.4)(nanostores@1.4.2))(@better-auth/utils@0.4.2)
@@ -8435,8 +8916,8 @@ snapshots:
       nanostores: 1.4.2
       zod: 4.4.3
     optionalDependencies:
-      drizzle-kit: 0.31.10
-      drizzle-orm: 0.45.2(kysely@0.29.4)(postgres@3.4.9)
+      drizzle-kit: 0.31.11
+      drizzle-orm: 0.45.3(kysely@0.29.4)(postgres@3.4.9)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
     transitivePeerDependencies:
@@ -8471,6 +8952,8 @@ snapshots:
       type-is: 2.1.0
     transitivePeerDependencies:
       - supports-color
+
+  bowser@2.14.1: {}
 
   brace-expansion@1.1.12:
     dependencies:
@@ -8730,6 +9213,8 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.2
 
+  date-fns@4.4.0: {}
+
   debounce-fn@4.0.0:
     dependencies:
       mimic-fn: 3.1.0
@@ -8810,14 +9295,14 @@ snapshots:
 
   dotenv@17.4.2: {}
 
-  drizzle-kit@0.31.10:
+  drizzle-kit@0.31.11:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
       esbuild: 0.25.12
       tsx: 4.23.1
 
-  drizzle-orm@0.45.2(kysely@0.29.4)(postgres@3.4.9):
+  drizzle-orm@0.45.3(kysely@0.29.4)(postgres@3.4.9):
     optionalDependencies:
       kysely: 0.29.4
       postgres: 3.4.9
@@ -10508,14 +10993,19 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nestjs-zod@4.3.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(zod@4.4.3):
+  nestjs-cls@7.0.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2):
     dependencies:
-      '@nest-zod/z': 2.0.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2))(zod@4.4.3)
-      deepmerge: 4.3.1
-      zod: 4.4.3
-    optionalDependencies:
       '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+      rxjs: 7.8.2
+
+  nestjs-zod@5.5.0(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)(zod@4.4.3):
+    dependencies:
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      deepmerge: 4.3.1
+      rxjs: 7.8.2
+      zod: 4.4.3
 
   node-abort-controller@3.1.1: {}
 
@@ -10783,7 +11273,7 @@ snapshots:
       '@jest/schemas': 30.4.1
       ansi-styles: 5.2.0
       react-is-18: react-is@18.3.1
-      react-is-19: react-is@19.2.7
+      react-is-19: react-is@19.3.0
 
   pretty-ms@9.3.0:
     dependencies:
@@ -10827,16 +11317,28 @@ snapshots:
       iconv-lite: 0.7.3
       unpipe: 1.0.0
 
+  react-day-picker@10.0.1(@types/react@19.2.2)(react@19.2.0):
+    dependencies:
+      '@date-fns/tz': 1.5.0
+      date-fns: 4.4.0
+      react: 19.2.0
+    optionalDependencies:
+      '@types/react': 19.2.2
+
   react-dom@19.2.0(react@19.2.0):
     dependencies:
       react: 19.2.0
       scheduler: 0.27.0
 
+  react-hook-form@7.87.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+
   react-is@16.13.1: {}
 
   react-is@18.3.1: {}
 
-  react-is@19.2.7: {}
+  react-is@19.3.0: {}
 
   react-refresh@0.17.0: {}
 

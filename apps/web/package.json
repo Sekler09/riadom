@@ -19,6 +19,7 @@
     "@better-auth/infra": "^0.3.7",
     "@floating-ui/dom": "^1.8.0",
     "@floating-ui/utils": "^0.2.12",
+    "@hookform/resolvers": "^5.9.1",
     "@repo/contracts": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.101.4",
@@ -27,8 +28,10 @@
     "axios": "^1.19.0",
     "better-auth": "1.6.26",
     "better-auth-telegram": "^2.0.1",
+    "date-fns": "^4.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.87.0",
     "scheduler": "^0.25.0"
   },
   "devDependencies": {

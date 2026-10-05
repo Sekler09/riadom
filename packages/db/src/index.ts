@@ -8,9 +8,9 @@ const createDb = (connectionString: string) => {
   return drizzle(client, { schema });
 };
 
-type Db = ReturnType<typeof createDb>;
+type Database = ReturnType<typeof createDb>;
 
 export { createDb };
-export type { Db };
+export type { Database };
 
 export { schema };
