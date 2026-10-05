@@ -148,11 +148,15 @@ const PostsRoute = () => {
 - react-hook-form + zod via `@hookform/resolvers/zod`.
 - The zod schema comes from `packages/contracts` whenever the form maps to an API payload — don't redefine validation that already exists as a contract. Only define a local schema for pure UI-only fields that never hit the API.
 - **Every form gets its own dedicated hook**, named `use<FormName>Form` (`useSignUpForm`, `useCreatePostForm`), living next to the form component (or in `features/<feature>/hooks/` if it's feature-owned). This hook owns _all_ form logic — `useForm` setup, resolver, default values, the mutation call, and the submit handler. The component only renders fields and calls what the hook gives it.
+- **Presentational plumbing goes through the shared form kit** in `apps/web/src/components/form/` — `Form`, `FormField`, `FormLabel`, `SubmitButton`. Keep `@repo/ui` Field primitives framework-agnostic; the kit composes them with RHF.
+- `FormField` is **render-prop only** — callers always wire the control themselves from `(field, controlProps)`.
+- `SubmitButton` disables itself from `formState.isSubmitting` (so `onSubmit` must return a Promise — use `mutateAsync` / `await` in the hook). Don't hand-wire `disabled={isPending}` on submit unless you have a non-RHF pending source outside the form.
+- Non-RHF controls (e.g. local file pickers) stay outside `FormField` and keep explicit props.
 
 ```ts
 // useSignUpForm.ts
 const useSignUpForm = () => {
-  const { mutateAsync, isPending } = useSignUpMutation();
+  const { mutateAsync } = useSignUpMutation();
 
   const form = useForm<SignUpInput>({
     resolver: zodResolver(signUpSchema), // from packages/contracts
@@ -163,32 +167,69 @@ const useSignUpForm = () => {
     await mutateAsync(values);
   });
 
-  return { form, onSubmit, isPending };
+  return { form, onSubmit };
 };
 ```
 
 ```tsx
 // SignUpForm.tsx
+import { Form } from '@/components/form/form';
+import { FormField } from '@/components/form/form-field';
+import { FormLabel } from '@/components/form/form-label';
+import { SubmitButton } from '@/components/form/submit-button';
+
 type SignUpFormProps = Record<string, never>;
 
 const SignUpForm = (_props: SignUpFormProps) => {
-  const { form, onSubmit, isPending } = useSignUpForm();
+  const { form, onSubmit } = useSignUpForm();
 
   return (
-    <form onSubmit={onSubmit}>
-      <Input {...form.register('email')} />
-      <Input {...form.register('password')} type="password" />
-      <Button type="submit" disabled={isPending}>
-        Sign up
-      </Button>
-    </form>
+    <Form form={form} onSubmit={onSubmit}>
+      <FormField name="email" label={<FormLabel>Email</FormLabel>}>
+        {(field, controlProps) => (
+          <Input
+            {...field}
+            {...controlProps}
+            type="email"
+            autoComplete="email"
+          />
+        )}
+      </FormField>
+
+      <FormField name="password" label={<FormLabel>Password</FormLabel>}>
+        {(field, controlProps) => (
+          <Input
+            {...field}
+            {...controlProps}
+            type="password"
+            autoComplete="new-password"
+          />
+        )}
+      </FormField>
+
+      {/* Adapt value shape when the control isn't a plain text input */}
+      <FormField name="birthDate" label={<FormLabel>Date of birth</FormLabel>}>
+        {(field, controlProps) => (
+          <BirthDatePicker
+            {...controlProps}
+            value={isoToDate(field.value)}
+            onChange={(date) =>
+              field.onChange(date ? dateToIso(date) : undefined)
+            }
+          />
+        )}
+      </FormField>
+
+      <SubmitButton>Sign up</SubmitButton>
+    </Form>
   );
 };
 
 export { SignUpForm };
 ```
 
-- The component stays presentation-only: no `useForm`, no resolver, no submit/mutation logic directly inside it — all of that lives in the hook. If the JSX needs a derived value (e.g. `form.formState.errors.email`), read it off what the hook returns, don't recompute it in the component.
+- The component stays presentation-only: no `useForm`, no resolver, no submit/mutation logic directly inside it — all of that lives in the hook.
+- Prefer `FormField` over manual `register` / `Controller` / `errors.*` wiring. Always pass a render function — never a bare element child. Feature-specific chrome (numbered labels, custom layout) stays in thin feature wrappers that compose `FormField` + `FormLabel`.
 
 ## 6. Styling (shadcn + Tailwind)
 
@@ -217,3 +258,4 @@ Don't reach for `React.memo`, `useMemo`, or `useCallback` by default. Add them o
 - [ ] Variant styling via `cva`, not hand-written conditionals
 - [ ] No new global state unless it's genuinely cross-feature client-only state
 - [ ] Any form has its own `use<FormName>Form` hook — no `useForm`/resolver/submit logic inline in the component
+- [ ] Form UI uses `Form` / `FormField` / `SubmitButton` from `components/form/` instead of hand-wiring `register`/`Controller`/`disabled={isPending}`

@@ -1,9 +1,9 @@
-import { Button } from '@repo/ui/components/button';
 import { FieldDescription, FieldGroup } from '@repo/ui/components/field';
 import { Logo } from '@repo/ui/components/logo';
 import { ArrowUpRight, Lock } from 'lucide-react';
-import { Controller } from 'react-hook-form';
 
+import { Form } from '@/components/form/form';
+import { SubmitButton } from '@/components/form/submit-button';
 import { OnboardingAvatarField } from '@/features/onboarding/components/onboarding-avatar-field';
 import { OnboardingBirthDateField } from '@/features/onboarding/components/onboarding-birth-date-field';
 import { OnboardingIntro } from '@/features/onboarding/components/onboarding-intro';
@@ -21,17 +21,12 @@ const OnboardingForm = () => {
     handleAvatarRemove,
   } = useOnboardingForm();
 
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = form;
-
   return (
     <main className="flex min-h-dvh flex-col bg-background">
-      <form
-        className="flex min-h-dvh flex-col touch-manipulation"
+      <Form
+        form={form}
         onSubmit={onSubmit}
+        className="flex min-h-dvh flex-col touch-manipulation"
       >
         <header className="sticky top-0 z-10 shrink-0 border-b border-border/60 bg-background">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-10">
@@ -53,22 +48,9 @@ const OnboardingForm = () => {
                 onRemove={handleAvatarRemove}
               />
 
-              <OnboardingNameField
-                registration={register('name')}
-                error={errors.name?.message}
-              />
+              <OnboardingNameField />
 
-              <Controller
-                name="birthDate"
-                control={control}
-                render={({ field }) => (
-                  <OnboardingBirthDateField
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={errors.birthDate?.message}
-                  />
-                )}
-              />
+              <OnboardingBirthDateField />
             </FieldGroup>
           </div>
         </div>
@@ -87,13 +69,13 @@ const OnboardingForm = () => {
               </span>
             </FieldDescription>
 
-            <Button type="submit" size="lg" className="h-12 w-full lg:w-auto">
+            <SubmitButton size="lg" className="h-12 w-full lg:w-auto">
               continue
               <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
-            </Button>
+            </SubmitButton>
           </div>
         </div>
-      </form>
+      </Form>
     </main>
   );
 };
