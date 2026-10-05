@@ -22,6 +22,7 @@ import {
   OnboardingFieldBlock,
   RequiredMark,
 } from '@/features/onboarding/components/onboarding-field-block';
+import { useFormContext } from 'react-hook-form';
 
 type OnboardingAvatarFieldProps = {
   inputRef: RefObject<HTMLInputElement | null>;
@@ -38,6 +39,8 @@ const OnboardingAvatarField = ({
   onChange,
   onRemove,
 }: OnboardingAvatarFieldProps) => {
+  const { formState } = useFormContext();
+
   return (
     <FieldSet>
       <FieldLegend className="sr-only">photo (required)</FieldLegend>
@@ -119,6 +122,7 @@ const OnboardingAvatarField = ({
                 size="sm"
                 className="h-11 w-fit px-0 text-[11px] tracking-caps uppercase"
                 onClick={onRemove}
+                disabled={formState.isSubmitting}
               >
                 remove
               </Button>
