@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ProfileService } from './profile.service';
-import { UsersModule } from 'src/users/users.module';
 import { DatabaseModule } from 'src/db/database.module';
+import { StorageModule } from 'src/storage/storage.module';
+import { UsersModule } from 'src/users/users.module';
+import { ProfileController } from './profile.controller';
+import { ProfileService } from './profile.service';
 
 @Module({
   providers: [ProfileService],
   exports: [ProfileService],
-  imports: [UsersModule, DatabaseModule],
+  imports: [UsersModule, DatabaseModule, StorageModule],
+  controllers: [ProfileController],
 })
 export class ProfileModule {}

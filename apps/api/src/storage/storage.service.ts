@@ -17,9 +17,11 @@ import { createUploadKey } from './utils/create-upload-key';
 export class StorageService {
   private readonly client: S3Client;
   private readonly bucketName: string;
+  private readonly storageUrl: string;
 
   constructor(@Inject(ENV_CONFIG) config: EnvConfig) {
     this.bucketName = config.S3_BUCKET;
+    this.storageUrl = config.S3_ENDPOINT;
 
     this.client = new S3Client({
       region: config.S3_REGION,
@@ -64,5 +66,9 @@ export class StorageService {
       }
       throw error;
     }
+  }
+
+  getPublicReadUrl(key: string) {
+    return [this.storageUrl, this.bucketName, key].join('/');
   }
 }

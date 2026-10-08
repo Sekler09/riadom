@@ -33,7 +33,7 @@ riadom/
 | Package           | Purpose                                                      |
 | ----------------- | ------------------------------------------------------------ |
 | `@repo/contracts` | Single source of truth for API request/response shapes (Zod) |
-| `@repo/db`        | Drizzle schema, migrations, and `createDb()` client factory  |
+| `@repo/db`        | Drizzle schema, row/insert types, migrations, `createDb()`   |
 | `@repo/ui`        | Design system primitives only — Button, Card, Input, theme   |
 | `apps/web`        | Product UI, feature modules, routing, app composition        |
 | `apps/api`        | HTTP API, business logic, Better Auth, data access           |
@@ -252,16 +252,22 @@ packages/db/
 ├── src/
 │   ├── db/
 │   │   ├── auth-schema.ts      # Better Auth tables (+ tgUsername on user)
-│   │   └── schema.ts           # Re-exports auth-schema (extend for app tables)
+│   │   ├── profile-schema.ts   # App tables + Profile / NewProfile row types
+│   │   └── schema.ts           # Re-exports table schemas
 │   └── index.ts                # createDb(), schema export
 ├── drizzle/                    # Generated SQL migrations
 └── drizzle.config.ts
 ```
 
+Row/insert types (`typeof table.$inferSelect` / `$inferInsert`) live next to the
+table in `@repo/db`. They are for **backend** data-access code only — never import
+`@repo/db` from `apps/web` or `@repo/contracts`.
+
 Usage in the API:
 
 ```typescript
 import { createDb, schema } from '@repo/db';
+import type { Profile as ProfileRow, NewProfile } from '@repo/db/schema';
 import { drizzleAdapter } from '@better-auth/drizzle-adapter';
 
 const db = createDb(env.DATABASE_URL);
@@ -290,10 +296,19 @@ One file (or folder) per domain with a subpath export in `package.json`:
 packages/contracts/src/
 ├── health.ts
 ├── auth-errors.ts
+├── onboarding.ts
+├── profile.ts
+├── upload.ts
 └── index.ts
 ```
 
-Both `apps/web` and `apps/api` import from the same schema. The web client validates search params and responses; the api validates requests/responses via DTOs.
+Both `apps/web` and `apps/api` import from the same Zod schema. The web client
+validates search params and responses; the api validates requests/responses via
+DTOs (`createZodDto`).
+
+**DB types vs wire types:** API shapes in `@repo/contracts` are intentional public
+DTOs (e.g. `Profile` with `avatarUrl`), not Drizzle row types. Services map
+`ProfileRow` → contract `Profile`. Do not derive contracts from `@repo/db`.
 
 ---
 

@@ -17,25 +17,25 @@ Follow [Bulletproof React](https://github.com/alan2207/bulletproof-react/) struc
 - **No cross-feature imports** — compose features in `app/routes/`
 - **No barrel files** — direct file imports only
 - **kebab-case** for files and folders
-- **`@repo/contracts`** for API shapes; **`@repo/ui`** for design system only; **`@repo/db`** for Drizzle schema and client
+- **`@repo/contracts`** for API Zod shapes (web + api); **`@repo/ui`** for design system only; **`@repo/db`** for Drizzle schema, row/insert types, and client (api only — never web/contracts)
 
 ## Where to put new code
 
-| What                 | Where                                         |
-| -------------------- | --------------------------------------------- |
-| Feature UI/logic     | `apps/web/src/features/<name>/`               |
-| Route-facing page    | `features/<name>/pages/<name>-page.tsx`       |
-| Shared app UI        | `apps/web/src/components/`                    |
-| Design primitive     | `packages/ui/src/components/`                 |
-| Shared hook          | `apps/web/src/hooks/`                         |
-| API fetcher / query  | `features/<name>/api/`                        |
-| Auth client          | `features/auth/api/`                          |
-| Route wiring         | `apps/web/src/app/routes/`                    |
-| API shape (Zod)      | `packages/contracts/src/<domain>.ts`          |
-| DB schema / migration| `packages/db/src/db/`                         |
-| NestJS endpoint      | `apps/api/src/<feature>/`                     |
-| Better Auth config   | `apps/api/src/auth/`                          |
-| Guard/filter/pipe    | `apps/api/src/common/`                        |
+| What                  | Where                                   |
+| --------------------- | --------------------------------------- |
+| Feature UI/logic      | `apps/web/src/features/<name>/`         |
+| Route-facing page     | `features/<name>/pages/<name>-page.tsx` |
+| Shared app UI         | `apps/web/src/components/`              |
+| Design primitive      | `packages/ui/src/components/`           |
+| Shared hook           | `apps/web/src/hooks/`                   |
+| API fetcher / query   | `features/<name>/api/`                  |
+| Auth client           | `features/auth/api/`                    |
+| Route wiring          | `apps/web/src/app/routes/`              |
+| API shape (Zod)       | `packages/contracts/src/<domain>.ts`    |
+| DB schema / migration | `packages/db/src/db/`                   |
+| NestJS endpoint       | `apps/api/src/<feature>/`               |
+| Better Auth config    | `apps/api/src/auth/`                    |
+| Guard/filter/pipe     | `apps/api/src/common/`                  |
 
 ## Adding a frontend feature
 
@@ -89,6 +89,7 @@ export class HealthController {
 - Business logic in NestJS controllers
 - Feature-specific UI in `@repo/ui`
 - Duplicating API types outside `@repo/contracts`
+- Importing `@repo/db` from `apps/web` or `@repo/contracts` (use contracts for wire types; map in api services)
 - Shared hooks/lib importing from `features/` or `app/`
 - Editing `routeTree.gen.ts` by hand
 
