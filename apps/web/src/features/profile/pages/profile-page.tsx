@@ -1,89 +1,65 @@
-import { Button } from '@repo/ui/components/button';
-import { useNavigate } from '@tanstack/react-router';
-import { useEffect } from 'react';
-
-import { signOut, useSession } from '@/features/auth/api/auth-client';
-import { paths } from '@/constants/paths';
+import { useSessionQuery } from '@/features/auth/api/use-session-query';
+import { useMyProfile } from '@/features/profile/api/use-my-profile';
+import { ProfileDownForSection } from '@/features/profile/components/profile-down-for-section';
+import { ProfileSoonRows } from '@/features/profile/components/profile-soon-rows';
+import { getAgeYears } from '@/features/profile/utils/get-age-years';
+import { ProfileAvatar } from '@/features/profile/components/profile-avatar';
+import { SignOutButton } from '@/features/profile/components/sign-out-button';
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-  const { data, isPending } = useSession();
-  const user = data?.user;
+  const { data: profile } = useMyProfile();
+  const { data: session } = useSessionQuery();
 
-  useEffect(() => {
-    if (!isPending && !user) {
-      void navigate({ to: paths.signIn });
-    }
-  }, [isPending, user, navigate]);
-
-  if (isPending || !user) {
-    return (
-      <main className="mx-auto flex min-h-dvh w-full max-w-md items-center justify-center px-6">
-        <p className="text-muted-foreground text-sm">
-          {isPending ? 'Loading session…' : 'Redirecting to sign in…'}
-        </p>
-      </main>
-    );
-  }
-
-  const handleSignOut = async () => {
-    await signOut();
-    void navigate({ to: paths.signIn });
-  };
+  const tgUsername = session?.user?.tgUsername;
+  const age = getAgeYears(profile.birthDate);
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col justify-center gap-8 px-6 py-12">
-      <div className="space-y-2">
-        <p className="text-muted-foreground text-xs tracking-wide uppercase">
-          Temp profile
-        </p>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {user.name || 'Signed in'}
-        </h1>
+    <main className="flex min-h-dvh flex-col bg-background touch-manipulation">
+      <header className="shrink-0 border-b border-border/60 bg-background">
+        <div className="mx-auto flex w-full max-w-md items-center px-6 py-4 pt-[max(1rem,env(safe-area-inset-top))]">
+          <p className="text-kicker">Profile</p>
+        </div>
+      </header>
+
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-8 px-6 py-8 animate-fade-up">
+        <section
+          className="flex flex-col items-center gap-4 text-center"
+          aria-label="Your identity"
+        >
+          <ProfileAvatar profile={profile} />
+
+          <div className="space-y-1">
+            <h1 className="type-display-md normal-case tracking-[-0.02em]">
+              {profile.name}
+            </h1>
+            <p className="text-muted-foreground text-sm">{age} years old</p>
+          </div>
+        </section>
+
+        <ProfileDownForSection />
+
+        <section aria-label="Contact">
+          <p className="text-label mb-2">Contact</p>
+          <dl className="border-t border-border/60">
+            <div className="flex min-h-11 items-center justify-between gap-4 border-b border-border/60 py-3">
+              <dt className="text-sm font-medium">Telegram</dt>
+              <dd className="truncate text-sm text-muted-foreground">
+                {tgUsername ? `@${tgUsername}` : '—'}
+              </dd>
+            </div>
+          </dl>
+          <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+            Visible only after an approved activity — not public on your
+            profile.
+          </p>
+        </section>
+
+        <ProfileSoonRows />
       </div>
 
-      <dl className="space-y-3 text-sm">
-        <div className="flex justify-between gap-4 border-b border-border py-2">
-          <dt className="text-muted-foreground">ID</dt>
-          <dd className="truncate font-mono text-xs">{user.id}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-border py-2">
-          <dt className="text-muted-foreground">Email</dt>
-          <dd className="truncate">{user.email || '—'}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-border py-2">
-          <dt className="text-muted-foreground">Name</dt>
-          <dd className="truncate">{user.name || '—'}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-border py-2">
-          <dt className="text-muted-foreground">Telegram</dt>
-          <dd className="truncate">
-            {user.tgUsername
-              ? `@${user.tgUsername}`
-              : 'Set a Telegram username'}
-          </dd>
-        </div>
-        {user.image ? (
-          <div className="flex items-center justify-between gap-4 border-b border-border py-2">
-            <dt className="text-muted-foreground">Avatar</dt>
-            <dd>
-              <img
-                src={user.image}
-                alt=""
-                className="size-10 rounded-full object-cover"
-              />
-            </dd>
-          </div>
-        ) : null}
-      </dl>
-
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() => void handleSignOut()}
-      >
-        Log out
-      </Button>
+      <div className="mx-auto w-full max-w-md px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <SignOutButton />
+      </div>
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import type { Profile } from '@repo/contracts/profile';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import { apiClient } from '@/lib/api-client';
 
@@ -16,4 +16,4 @@ export const myProfileQueryOptions = () =>
     queryKey: profileKeys.me(),
   });
 
-export const useMyProfile = () => useQuery(myProfileQueryOptions());
+export const useMyProfile = () => useSuspenseQuery(myProfileQueryOptions());

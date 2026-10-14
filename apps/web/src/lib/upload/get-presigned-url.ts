@@ -1,6 +1,6 @@
-import {
+import type {
   GetPresignedUrlResponse,
-  type GetPresignedUrl,
+  GetPresignedUrl,
 } from '@repo/contracts/upload';
 import { apiClient } from '../api-client';
 
