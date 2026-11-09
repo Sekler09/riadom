@@ -1,11 +1,17 @@
 import { Transactional, TransactionHost } from '@nestjs-cls/transactional';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import type { Profile } from '@repo/contracts/profile';
 import { profile } from '@repo/db/schema';
-import { eq, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { User } from 'src/auth/create-auth';
 import { type DbAdapter } from 'src/db/database.module';
 import { takeFirstOrThrow } from 'src/db/utils/take-first';
+import { EditProfileDto } from 'src/profile/dto/edit-profile.dto';
+import { isUserUploadKey } from 'src/storage/utils/is-user-upload-key';
 import { OnboardUserDto } from 'src/onboarding/dto/onboard-user.dto';
 import { StorageService } from 'src/storage/storage.service';
 import { UsersService } from 'src/users/users.service';
@@ -26,22 +32,16 @@ export class ProfileService {
       throw new NotFoundException('user not found');
     }
 
-    const rows = await this.txHost.tx
+    const row = await this.txHost.tx
       .insert(profile)
       .values({
         ...dto,
         userId,
       })
-      .returning({
-        id: profile.id,
-        name: profile.name,
-        birthDate: profile.birthDate,
-        avatarUrl: sql`${profile.avatarKey}`.mapWith((v: string) =>
-          this.storageService.getPublicReadUrl(v),
-        ),
-      });
+      .returning()
+      .then(takeFirstOrThrow);
 
-    return takeFirstOrThrow(rows);
+    return this.mapToProfile(row);
   }
 
   async getUserProfile(userId: User['id']): Promise<Profile> {
@@ -54,13 +54,55 @@ export class ProfileService {
       throw new NotFoundException('profile not found');
     }
 
-    const avatarUrl = this.storageService.getPublicReadUrl(row.avatarKey);
+    return this.mapToProfile(row);
+  }
 
+  async editUserProfile(
+    userId: User['id'],
+    dto: EditProfileDto,
+  ): Promise<Profile> {
+    const [row] = await this.txHost.tx
+      .select()
+      .from(profile)
+      .where(eq(profile.userId, userId));
+
+    if (!row) {
+      throw new NotFoundException('profile not found');
+    }
+
+    const avatarChanged = dto.avatarKey !== row.avatarKey;
+
+    if (avatarChanged) {
+      if (!isUserUploadKey(dto.avatarKey, userId)) {
+        throw new BadRequestException('Photo does not belong to current user');
+      }
+
+      if (!(await this.storageService.isObjectExist(dto.avatarKey))) {
+        throw new BadRequestException('Photo does not exist');
+      }
+    }
+
+    const updated = await this.txHost.tx
+      .update(profile)
+      .set({ name: dto.name, avatarKey: dto.avatarKey })
+      .where(eq(profile.userId, userId))
+      .returning()
+      .then(takeFirstOrThrow);
+
+    if (avatarChanged) {
+      await this.storageService.deleteObject(row.avatarKey);
+    }
+
+    return this.mapToProfile(updated);
+  }
+
+  private mapToProfile(row: typeof profile.$inferSelect): Profile {
     return {
       id: row.id,
       name: row.name,
       birthDate: row.birthDate,
-      avatarUrl,
+      avatarKey: row.avatarKey,
+      avatarUrl: this.storageService.getPublicReadUrl(row.avatarKey),
     };
   }
 }

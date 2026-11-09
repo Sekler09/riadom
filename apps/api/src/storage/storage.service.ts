@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
+  DeleteObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -66,6 +67,12 @@ export class StorageService {
       }
       throw error;
     }
+  }
+
+  async deleteObject(key: string) {
+    await this.client.send(
+      new DeleteObjectCommand({ Bucket: this.bucketName, Key: key }),
+    );
   }
 
   getPublicReadUrl(key: string) {

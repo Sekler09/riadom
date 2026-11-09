@@ -1,10 +1,15 @@
+import { Button } from '@repo/ui/components/button';
+import { Link } from '@tanstack/react-router';
+import { Pencil } from 'lucide-react';
+
+import { paths } from '@/constants/paths';
 import { useSessionQuery } from '@/features/auth/api/use-session-query';
 import { useMyProfile } from '@/features/profile/api/use-my-profile';
+import { ProfileAvatar } from '@/features/profile/components/profile-avatar';
 import { ProfileDownForSection } from '@/features/profile/components/profile-down-for-section';
 import { ProfileSoonRows } from '@/features/profile/components/profile-soon-rows';
-import { getAgeYears } from '@/features/profile/utils/get-age-years';
-import { ProfileAvatar } from '@/features/profile/components/profile-avatar';
 import { SignOutButton } from '@/features/profile/components/sign-out-button';
+import { getAgeYears } from '@/features/profile/utils/get-age-years';
 
 const ProfilePage = () => {
   const { data: profile } = useMyProfile();
@@ -16,8 +21,23 @@ const ProfilePage = () => {
   return (
     <main className="flex min-h-dvh flex-col bg-background touch-manipulation">
       <header className="shrink-0 border-b border-border/60 bg-background">
-        <div className="mx-auto flex w-full max-w-md items-center px-6 py-4 pt-[max(1rem,env(safe-area-inset-top))]">
+        <div className="mx-auto flex w-full max-w-md items-center justify-between gap-4 px-6 py-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
           <p className="text-kicker">Profile</p>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="min-h-11 px-3 transition-colors duration-200"
+            nativeButton={false}
+            render={<Link to={paths.profileEdit} />}
+          >
+            <Pencil
+              data-icon="inline-start"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
+            Edit
+          </Button>
         </div>
       </header>
 
